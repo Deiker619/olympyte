@@ -1,0 +1,52 @@
+{
+  "data": [
+    {
+      "id": 90001,
+      "estudiante": {
+        "id": 5002,
+        "nombre": "José Martínez"
+      },
+      "curso": {
+        "id": 103,
+        "nombre": "Salsa B3"
+      },
+      "mes": 8,
+      "anio": 2025,
+      "monto": 10.0,
+      "fecha": "2025-08-05",
+      "metodo_pago": "EFECTIVO",
+      "nota": "Pago en sede"
+    },
+    {
+      "id": 90002,
+      "estudiante": {
+        "id": 5002,
+        "nombre": "José Martínez"
+      },
+      "curso": {
+        "id": 102,
+        "nombre": "Salsa B2"
+      },
+      "mes": 8,
+      "anio": 2025,
+      "monto": 5.0,
+      "fecha": "2025-08-05",
+      "metodo_pago": "ZELLE",
+      "nota": "Ref. 8821"
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "total": 2,
+    "pages": 1
+  },
+  "sumatoria": {
+    "total_mes": 15.0,
+    "moneda": "USD",
+    "por_metodo": {
+      "EFECTIVO": 10.0,
+      "ZELLE": 5.0
+    }
+  }
+}

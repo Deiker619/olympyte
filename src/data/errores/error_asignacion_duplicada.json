@@ -1,0 +1,5 @@
+{
+  "statusCode": 400,
+  "message": "Validación: estudiante ya está asignado a este curso",
+  "error": "Bad Request"
+}

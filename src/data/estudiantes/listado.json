@@ -1,0 +1,51 @@
+{
+  "data": [
+    {
+      "id": 5001,
+      "nombre": "Ana",
+      "apellido": "Pérez",
+      "sedes_inscritas": [
+        1
+      ],
+      "cursos": [
+        {
+          "id": 102,
+          "nombre": "Salsa B2",
+          "estado": "SUSPENDIDO"
+        },
+        {
+          "id": 101,
+          "nombre": "Salsa B1",
+          "estado": "ACTIVO"
+        }
+      ]
+    },
+    {
+      "id": 5002,
+      "nombre": "José",
+      "apellido": "Martínez",
+      "sedes_inscritas": [
+        1,
+        2
+      ],
+      "cursos": [
+        {
+          "id": 103,
+          "nombre": "Salsa B3",
+          "estado": "ACTIVO"
+        },
+        {
+          "id": 102,
+          "nombre": "Salsa B2",
+          "estado": "APOYO-ACTIVO"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "total": 2,
+    "pages": 1
+  }
+}

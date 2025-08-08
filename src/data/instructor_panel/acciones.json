@@ -1,0 +1,36 @@
+{
+  "cursos_asignados": [
+    {
+      "id": 103,
+      "nombre": "Salsa Casino B3",
+      "sede": "Sabana Grande",
+      "proxima_clase": "2025-08-10 18:00",
+      "suspendidos": 1,
+      "activos": 17
+    },
+    {
+      "id": 102,
+      "nombre": "Salsa Casino B2",
+      "sede": "Sabana Grande",
+      "proxima_clase": "2025-08-11 18:00",
+      "suspendidos": 0,
+      "activos": 16
+    }
+  ],
+  "acciones": [
+    {
+      "nombre": "Suspender estudiante",
+      "endpoint": "PATCH /asignaciones-curso/:id",
+      "payload_ejemplo": {
+        "estado": "SUSPENDIDO"
+      }
+    },
+    {
+      "nombre": "Reactivar estudiante",
+      "endpoint": "PATCH /asignaciones-curso/:id",
+      "payload_ejemplo": {
+        "estado": "ACTIVO"
+      }
+    }
+  ]
+}

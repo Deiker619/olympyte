@@ -1,0 +1,52 @@
+{
+  "curso": {
+    "id": 103,
+    "nombre": "Salsa Casino Básico 3",
+    "genero": {
+      "id": 1,
+      "nombre": "Salsa Casino"
+    },
+    "sede": {
+      "id": 1,
+      "nombre": "Sabana Grande"
+    },
+    "nivel": 3,
+    "precio_normal": 10.0,
+    "precio_apoyo": 5.0,
+    "instructores": [
+      {
+        "id": 11,
+        "nombre": "Carla Gómez"
+      }
+    ]
+  },
+  "roster": [
+    {
+      "asignacion_id": 80011,
+      "estudiante": {
+        "id": 5002,
+        "nombre": "José Martínez"
+      },
+      "tipo": "NORMAL",
+      "estado": "ACTIVO",
+      "desde": "2025-08-01"
+    },
+    {
+      "asignacion_id": 80015,
+      "estudiante": {
+        "id": 5001,
+        "nombre": "Ana Pérez"
+      },
+      "tipo": "APOYO",
+      "estado": "SUSPENDIDO",
+      "desde": "2025-07-10",
+      "motivo": "Ausencia prolongada"
+    }
+  ],
+  "acciones_permitidas": [
+    "SUSPENDER",
+    "REACTIVAR",
+    "CAMBIAR_TIPO",
+    "ELIMINAR_ASIGNACION"
+  ]
+}

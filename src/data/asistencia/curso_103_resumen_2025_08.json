@@ -1,0 +1,35 @@
+{
+  "curso": {
+    "id": 103,
+    "nombre": "Salsa Casino B3",
+    "sede_id": 1
+  },
+  "resumen_mes": {
+    "mes": 8,
+    "anio": 2025,
+    "clases_programadas": 8,
+    "promedio_asistencia": 0.78
+  },
+  "clases": [
+    {
+      "fecha": "2025-08-01",
+      "presentes": 12,
+      "ausentes": 3
+    },
+    {
+      "fecha": "2025-08-08",
+      "presentes": 11,
+      "ausentes": 4
+    },
+    {
+      "fecha": "2025-08-15",
+      "presentes": 13,
+      "ausentes": 2
+    },
+    {
+      "fecha": "2025-08-22",
+      "presentes": 10,
+      "ausentes": 5
+    }
+  ]
+}

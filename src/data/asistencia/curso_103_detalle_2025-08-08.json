@@ -1,0 +1,28 @@
+{
+  "curso": {
+    "id": 103,
+    "nombre": "Salsa Casino B3"
+  },
+  "fecha": "2025-08-08",
+  "estudiantes": [
+    {
+      "estudiante_id": 5001,
+      "nombre": "Ana Pérez",
+      "estado": "SUSPENDIDO",
+      "presente": false
+    },
+    {
+      "estudiante_id": 5002,
+      "nombre": "José Martínez",
+      "estado": "ACTIVO",
+      "presente": true
+    },
+    {
+      "estudiante_id": 5003,
+      "nombre": "María López",
+      "estado": "ACTIVO",
+      "presente": true
+    }
+  ],
+  "reglas": "Estudiantes SUSPENDIDOS no pueden marcar asistencia"
+}

@@ -1,0 +1,59 @@
+{
+  "id": 5002,
+  "nombre": "José",
+  "apellido": "Martínez",
+  "sedes_inscritas": [
+    {
+      "sede_id": 1,
+      "nombre": "Sabana Grande",
+      "fecha_inscripcion": "2025-08-01",
+      "monto_pagado": 5.0
+    },
+    {
+      "sede_id": 2,
+      "nombre": "Agua Salud",
+      "fecha_inscripcion": "2025-08-02",
+      "monto_pagado": 5.0
+    }
+  ],
+  "cursos": [
+    {
+      "curso_id": 103,
+      "nombre": "Salsa Casino B3",
+      "tipo": "NORMAL",
+      "estado": "ACTIVO",
+      "precio": 10.0,
+      "desde": "2025-08-01"
+    },
+    {
+      "curso_id": 102,
+      "nombre": "Salsa Casino B2",
+      "tipo": "APOYO",
+      "estado": "ACTIVO",
+      "precio": 5.0,
+      "desde": "2025-08-01"
+    }
+  ],
+  "pagos_recientes": [
+    {
+      "pago_id": 90001,
+      "curso_id": 103,
+      "mes": 8,
+      "anio": 2025,
+      "monto": 10.0,
+      "fecha": "2025-08-05",
+      "metodo_pago": "EFECTIVO",
+      "nota": "Pago en sede"
+    },
+    {
+      "pago_id": 90002,
+      "curso_id": 102,
+      "mes": 8,
+      "anio": 2025,
+      "monto": 5.0,
+      "fecha": "2025-08-05",
+      "metodo_pago": "ZELLE",
+      "nota": "Ref. 8821"
+    }
+  ]
+}

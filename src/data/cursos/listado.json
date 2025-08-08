@@ -1,0 +1,78 @@
+{
+  "data": [
+    {
+      "id": 101,
+      "nombre": "Salsa Casino Básico 1",
+      "genero": "Salsa Casino",
+      "sede": "Sabana Grande",
+      "nivel": 1,
+      "precio_normal": 10.0,
+      "precio_apoyo": 5.0,
+      "instructores": [
+        {
+          "id": 10,
+          "nombre": "Luis Ramírez"
+        }
+      ],
+      "inscritos": 14
+    },
+    {
+      "id": 102,
+      "nombre": "Salsa Casino Básico 2",
+      "genero": "Salsa Casino",
+      "sede": "Sabana Grande",
+      "nivel": 2,
+      "precio_normal": 10.0,
+      "precio_apoyo": 5.0,
+      "instructores": [
+        {
+          "id": 10,
+          "nombre": "Luis Ramírez"
+        },
+        {
+          "id": 11,
+          "nombre": "Carla Gómez"
+        }
+      ],
+      "inscritos": 16
+    },
+    {
+      "id": 103,
+      "nombre": "Salsa Casino Básico 3",
+      "genero": "Salsa Casino",
+      "sede": "Sabana Grande",
+      "nivel": 3,
+      "precio_normal": 10.0,
+      "precio_apoyo": 5.0,
+      "instructores": [
+        {
+          "id": 11,
+          "nombre": "Carla Gómez"
+        }
+      ],
+      "inscritos": 18
+    },
+    {
+      "id": 201,
+      "nombre": "Bachata Sensual Intermedio",
+      "genero": "Bachata Sensual",
+      "sede": "Agua Salud",
+      "nivel": 2,
+      "precio_normal": 20.0,
+      "precio_apoyo": 10.0,
+      "instructores": [
+        {
+          "id": 12,
+          "nombre": "Miguel Suárez"
+        }
+      ],
+      "inscritos": 15
+    }
+  ],
+  "meta": {
+    "page": 1,
+    "limit": 10,
+    "total": 4,
+    "pages": 1
+  }
+}

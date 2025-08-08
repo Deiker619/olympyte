@@ -1,0 +1,47 @@
+{
+  "sedes": [
+    {
+      "id": 1,
+      "nombre": "Sabana Grande"
+    },
+    {
+      "id": 2,
+      "nombre": "Agua Salud"
+    }
+  ],
+  "generos": [
+    {
+      "id": 1,
+      "nombre": "Salsa Casino"
+    },
+    {
+      "id": 2,
+      "nombre": "Bachata Sensual"
+    },
+    {
+      "id": 3,
+      "nombre": "Kizomba"
+    }
+  ],
+  "instructores": [
+    {
+      "id": 10,
+      "nombre": "Luis Ramírez"
+    },
+    {
+      "id": 11,
+      "nombre": "Carla Gómez"
+    },
+    {
+      "id": 12,
+      "nombre": "Miguel Suárez"
+    }
+  ],
+  "metodos_pago": [
+    "EFECTIVO",
+    "ZELLE",
+    "TRANSFERENCIA",
+    "PUNTO",
+    "OTRO"
+  ]
+}

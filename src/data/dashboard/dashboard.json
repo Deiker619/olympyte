@@ -1,0 +1,32 @@
+{
+  "kpis": {
+    "estudiantes_activos": 126,
+    "ingresos_mes_usd": 1310.5,
+    "clases_este_mes": 34,
+    "tasa_asistencia": 0.81
+  },
+  "top_cursos": [
+    {
+      "curso_id": 103,
+      "nombre": "Salsa Casino B3",
+      "inscritos": 18,
+      "tasa_asistencia": 0.85
+    },
+    {
+      "curso_id": 201,
+      "nombre": "Bachata Intermedio",
+      "inscritos": 15,
+      "tasa_asistencia": 0.79
+    }
+  ],
+  "alertas": [
+    {
+      "tipo": "SUSPENDIDOS",
+      "mensaje": "5 estudiantes suspendidos en diferentes cursos"
+    },
+    {
+      "tipo": "PAGO_PENDIENTE",
+      "mensaje": "7 mensualidades vencidas este mes"
+    }
+  ]
+}
