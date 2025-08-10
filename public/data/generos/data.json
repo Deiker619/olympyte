@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "id": 2,
+            "nombre": "Bachata"
+
+        },
+        {
+            "id": 3,
+            "nombre": "Salsa Casino"
+
+        },
+        {
+            "id": 4,
+            "nombre": "Bachata Pacheco"
+
+        },
+        {
+            "id": 5,
+            "nombre": "Merengue"
+
+        }
+    ]
+}

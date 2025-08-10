@@ -8,6 +8,8 @@ import { Estudiantes } from "./pages/dashboard/Estudiantes/Estudiantes"
 import { Sedes } from "./pages/dashboard/Sedes/Sedes"
 import { Generos } from "./pages/dashboard/Generos/Generos"
 import { Instructores } from "./pages/dashboard/Instructores/Instructores"
+import { GenerosProvider } from "./contexts/Generos/generosContext"
+import { SedesProvider } from "./contexts/Sedes/sedesContext"
 
 
 
@@ -16,17 +18,24 @@ function App() {
     <>
 
       {/* Rutas privadas  */}
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Home></Home>} />
-          <Route path="/catalogos" element={<Catalogos></Catalogos>} />
-          <Route path="/cursos" element={<Cursos></Cursos>} />
-          <Route path="/generos" element={<Generos></Generos>} />
-          <Route path="/estudiantes" element={<Estudiantes></Estudiantes>} />
-          <Route path="/intructores" element={<Instructores></Instructores>} />
-          <Route path="/sedes" element={<Sedes></Sedes>} />
-        </Route>
-      </Routes>
+      <GenerosProvider>
+        <SedesProvider>
+
+
+
+          <Routes>
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Home></Home>} />
+              <Route path="/catalogos" element={<Catalogos></Catalogos>} />
+              <Route path="/cursos" element={<Cursos></Cursos>} />
+              <Route path="/generos" element={<Generos></Generos>} />
+              <Route path="/estudiantes" element={<Estudiantes></Estudiantes>} />
+              <Route path="/instructores" element={<Instructores></Instructores>} />
+              <Route path="/sedes" element={<Sedes></Sedes>} />
+            </Route>
+          </Routes>
+        </SedesProvider>
+      </GenerosProvider>
 
     </>
   )

@@ -32,9 +32,15 @@ import {
   IconPlus,
   IconTrendingUp,
 } from "@tabler/icons-react"
+
+
+import type {
+  ColumnDef, ColumnFiltersState, Row,
+  SortingState,
+  VisibilityState
+} from "@tanstack/react-table"
 import {
-  ColumnDef,
-  ColumnFiltersState,
+
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
@@ -42,10 +48,10 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  Row,
-  SortingState,
+
+
   useReactTable,
-  VisibilityState,
+
 } from "@tanstack/react-table"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import { toast } from "sonner"
@@ -54,8 +60,9 @@ import { z } from "zod"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import type { ChartConfig } from "@/components/ui/chart"
 import {
-  ChartConfig,
+
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -104,6 +111,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const schema = z.object({
   id: z.number(),
   header: z.string(),
@@ -495,9 +503,9 @@ export function DataTable({
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}

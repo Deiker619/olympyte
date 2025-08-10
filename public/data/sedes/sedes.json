@@ -1,0 +1,35 @@
+{
+    "data":[
+  {
+    "id": 1,
+    "nombre": "Sede Central",
+    "direccion": "Av. Libertad 1234, Ciudad Capital",
+    "telefono": "+54 11 4567-8901"
+  },
+  {
+    "id": 2,
+    "nombre": "Sucursal Norte",
+    "direccion": "Calle Los Pinos 234, Barrio Norte",
+    "telefono": "+54 11 2345-6789"
+  },
+  {
+    "id": 3,
+    "nombre": "Sucursal Sur",
+    "direccion": "Av. San Martín 987, Zona Sur",
+    "telefono": "+54 11 9876-5432"
+  },
+  {
+    "id": 4,
+    "nombre": "Sede Costanera",
+    "direccion": "Costanera Sur 456, Puerto Nuevo",
+    "telefono": "+54 11 1122-3344"
+  },
+  {
+    "id": 5,
+    "nombre": "Sede Industrial",
+    "direccion": "Parque Industrial 321, Sector B",
+    "telefono": "+54 11 5566-7788"
+  }
+]
+
+}

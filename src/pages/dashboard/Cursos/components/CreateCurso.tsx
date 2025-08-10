@@ -37,7 +37,6 @@ export function CreateCurso({
   icon
 }: CreateCursoProps) {
   const [useMode] = useState<"create" | "editing">(mode);
-
   const handleClick = (data: CursoForm) => {
     console.log(data);
   };
