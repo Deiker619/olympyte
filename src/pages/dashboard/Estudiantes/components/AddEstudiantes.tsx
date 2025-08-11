@@ -11,9 +11,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import type { Estudiante } from "@/interfaces/Estudiante";
+import { useCursos } from "@/hooks/Cursos/useCursos";
+import type { EstudianteCreateCurso } from "@/interfaces/Estudiante";
 import { useState } from "react";
 import { useForm /* Controller */ } from "react-hook-form";
+
 
 type ModeType = "create" | "editing";
 interface CreateCursoProps {
@@ -28,13 +30,17 @@ export function AddEstudiante({
   icon
 }: CreateCursoProps) {
   const [useMode] = useState<"create" | "editing">(mode);
-  const handleClick = (data: Estudiante) => {
+  const { cursos } = useCursos();
+  const handleClick = (data: EstudianteCreateCurso) => {
     console.log(data);
   };
-  const { register, /* control, */ handleSubmit } = useForm<Estudiante>({
+  const { register, /* control, */ handleSubmit } = useForm<EstudianteCreateCurso>({
     mode: "onChange",
     defaultValues: {
       nombre: "",
+      apellido: '',
+      cursos: [{ nombre: '' }]
+
 
     },
   });
@@ -58,12 +64,34 @@ export function AddEstudiante({
             <AlertDialogDescription></AlertDialogDescription>
           </AlertDialogHeader>
           <div className="grid grid-cols-2 gap-3 mb-4">
-            <div className="grid gap-3 col-span-2">
+            <div className="grid gap-3 ">
               <Label htmlFor="nombre">Nombre del Estudiante</Label>
-              <Input id="nombre" {...register("nombre")} />
+              <Input id="nombre" {...register("nombre", { required: 'El nombre es requerido' })} />
             </div>
-           
-            
+            <div className="grid gap-3">
+              <Label htmlFor="apellido">Apellido del Estudiante</Label>
+              <Input id="apellido" {...register("apellido")} />
+            </div>
+            <div className="grid col-span-2 gap-2 w-full bg-gray-200 p-3 rounded-2xl">
+              <Label className="text-center">Cursos a Inscribir</Label>
+              <div className="grid-cols-2 grid gap-3 bg">
+              {cursos?.map((curso) => (
+                <div key={curso.id}>
+                  <label  className="inline-flex gap-1 items-center">
+                    <input
+                      type="checkbox"
+                      value={curso.id}
+                      {...register("cursos")}
+                    />
+                    {curso.nombre}
+                  </label>
+                </div>
+              ))}
+
+              </div>
+            </div>
+
+
           </div>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>

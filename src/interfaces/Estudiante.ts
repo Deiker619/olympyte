@@ -14,10 +14,9 @@ export type EstudianteHasCurso = Pick<Estudiante, 'id'| 'nombre' | 'apellido'> &
   sedes_inscritas: SedeHasEstudiante[],
   cursos: CursoHasEstudiante[],
 }
-
+export type EstudianteCreateCurso = Omit<EstudianteHasCurso, 'id' | 'sedes_inscritas'>
 export type EstudianteDetalles = Pick<Estudiante, 'id'|'nombre'|'apellido'>&{
   pagos_recientes: PagoReciente[]
-  curso: Curso[],
   sedes_inscritas: SedeInscrita[];
   cursos: Curso[];
 

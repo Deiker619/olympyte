@@ -13,12 +13,13 @@ export const TableDetallesPagos = ({pagos}:{pagos:PagoReciente[]}) => {
   console.log(pagos)
   return (
     <Table>
-      <TableCaption>Lista de Estudiantes de Olimpo.</TableCaption>
+      <TableCaption>Lista de Pagos.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Fecha</TableHead>
           <TableHead>Metodo</TableHead>
           <TableHead>Monto</TableHead>
+          <TableHead>Nota</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -28,6 +29,7 @@ export const TableDetallesPagos = ({pagos}:{pagos:PagoReciente[]}) => {
               <TableCell>{pago.fecha}</TableCell>
               <TableCell><Badge>{pago.metodo_pago}</Badge></TableCell>
               <TableCell>{pago.monto}</TableCell>
+              <TableCell>{pago.nota}</TableCell>
 
 
             </>

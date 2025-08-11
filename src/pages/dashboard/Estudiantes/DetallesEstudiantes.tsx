@@ -6,6 +6,8 @@ import type { EstudianteDetalles } from "@/interfaces/Estudiante";
 import { useState, useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { getEstudiantesDetalles } from "@/services/Estudiantes/EstudiantesServices";
+import { TableDetallesCursos } from "./components/TableDetallesCursos";
+import { TableDetallesSedes } from "./components/TableDetallesSedes";
 
 export const DetallesEstudiantes = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,18 +19,9 @@ export const DetallesEstudiantes = () => {
 
     const fetchEstudiante = async () => {
       try {
-        const response = await getEstudiantesDetalles();
+        const response = await getEstudiantesDetalles(id);
         const posiblesDetalles = response.data;
-        if (Array.isArray(posiblesDetalles)) {
-          console.log('es array')
-          const estudianteEncontrado = posiblesDetalles.find(
-            (detalle) => detalle.id === +id
-          );
-          if(estudianteEncontrado){
-            return setEstudiante(estudianteEncontrado ?? null);
-          }
-          navigate("/estudiantes", { replace: true });
-        } else {
+        
           if(posiblesDetalles.id == +id){
             setEstudiante(posiblesDetalles)
           }else{
@@ -36,7 +29,7 @@ export const DetallesEstudiantes = () => {
 
           }
          
-        }
+        
       } catch (error) {
         console.error("Error cargando detalles estudiante:", error);
         setEstudiante(null);
@@ -44,15 +37,14 @@ export const DetallesEstudiantes = () => {
     };
 
     fetchEstudiante();
-  }, [id]);
+  }, [id, navigate]);
 
   if (!id ) return <Navigate to="/estudiantes" replace />;
   if (!estudiante) return <p>Cargando estudiante...</p>;
-  console.log(estudiante.pagos_recientes)
 
   return (
     <div className="px-4 lg:px-6 space-y-6">
-      <div className="w-full flex flex-col bg-red-300 h-20">
+      <div className="w-full flex flex-col h-20">
         <div className="w-full h-full flex justify-center items-center">
           <p className="md:text-xl text-sm">
             {estudiante.nombre} {estudiante.apellido}
@@ -60,7 +52,7 @@ export const DetallesEstudiantes = () => {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 grid-cols-1 h-auto md:h-100 border p-2 gap-4">
+      <div className="grid md:grid-cols-2 grid-cols-1 h-auto md:h-150  gap-4">
         <div className="border rounded-2xl flex flex-col p-2">
           <div className="p-4 text-lg flex items-center gap-4">
             <IconCashBanknote />
@@ -69,8 +61,24 @@ export const DetallesEstudiantes = () => {
           <Separator />
           <TableDetallesPagos pagos={estudiante.pagos_recientes ?? []} />
         </div>
-        <div className="border rounded-2xl"></div>
-        <div className="border rounded-2xl"></div>
+      
+        <div className="border rounded-2xl flex flex-col p-2">
+          <div className="p-4 text-lg flex items-center gap-4">
+            <IconCashBanknote />
+            <p>Cursos</p>
+          </div>
+          <Separator />
+          <TableDetallesCursos cursos={estudiante.cursos} />
+        </div>
+        <div className="border col-span-2 rounded-2xl flex flex-col p-2">
+          <div className="p-4 text-lg flex items-center gap-4">
+            <IconCashBanknote />
+            <p>Cursos</p>
+          </div>
+          <Separator />
+          <TableDetallesSedes sedes={estudiante.sedes_inscritas} />
+        </div>
+        
       </div>
     </div>
   );

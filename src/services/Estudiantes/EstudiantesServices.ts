@@ -5,8 +5,8 @@ export const getEstudiantes = async () => {
   console.log(response.data)
   return response;
 };
-export const getEstudiantesDetalles = async () => {
-  const response = await api.get("data/estudiante_detalle/5002.json"); // ruta relativa al baseURL
+export const getEstudiantesDetalles = async (id:string) => {
+  const response = await api.get(`data/estudiante_detalle/${id}.json`); // ruta relativa al baseURL
   return response;
 };
 
