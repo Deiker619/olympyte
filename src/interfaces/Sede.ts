@@ -6,3 +6,5 @@ export interface Sede {
 
 }
 
+export type SedeCreate = Omit<Sede, 'id'>
+export type SedeHasEstudiante = Pick<Sede, 'id'>

@@ -35,6 +35,8 @@ export const TableSedes = () => {
             <>
               <TableCell className="font-medium p-4">{sede.id}</TableCell>
               <TableCell>{sede.nombre}</TableCell>
+              <TableCell>{sede.direccion}</TableCell>
+              <TableCell>{sede.telefono}</TableCell>
               <TableCell className="flex flex-col justify-start w-30">
                 <DropdownMenu>
                   <DropdownMenuTrigger>

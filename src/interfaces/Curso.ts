@@ -1,3 +1,5 @@
+
+import type {   typeEstado } from "./Estados";
 import type { IntructorCurso } from "./Intructor";
 export interface Curso {
   id: number;
@@ -14,3 +16,6 @@ export interface Curso {
 
 
 export type CursoRequest = Omit<Curso, "created_at"| 'updated_at'>
+export type CursoHasEstudiante = Pick<Curso, 'id'| 'nombre'>&{
+  estado: typeEstado
+}
