@@ -11,6 +11,8 @@ import { GenerosProvider } from "./contexts/Generos/generosContext";
 import { SedesProvider } from "./contexts/Sedes/sedesContext";
 import { EstudiantesProvider } from "./contexts/Estudiantes/EstudiantesContext";
 import { DetallesEstudiantes } from "./pages/dashboard/Estudiantes/DetallesEstudiantes";
+import { InstructoresProvider } from "./contexts/Instructores/InstructoresContext";
+import { CursosProvider } from "./contexts/Cursos/CursosContext";
 
 function App() {
   return (
@@ -19,21 +21,34 @@ function App() {
       <GenerosProvider>
         <SedesProvider>
           <EstudiantesProvider>
-            <Routes>
-              <Route element={<MainLayout />}>
-                <Route path="/" element={<Home></Home>} />
-                <Route path="/catalogos" element={<Catalogos></Catalogos>} />
-                <Route path="/cursos" element={<Cursos></Cursos>} />
-                <Route path="/generos" element={<Generos></Generos>} />
-                <Route path="/estudiantes" element={<Estudiantes />}></Route>
-                <Route path="/estudiantes/:id" element={<DetallesEstudiantes />} />
-                <Route
-                  path="/instructores"
-                  element={<Instructores></Instructores>}
-                />
-                <Route path="/sedes" element={<Sedes></Sedes>} />
-              </Route>
-            </Routes>
+            <InstructoresProvider>
+              <CursosProvider>
+                <Routes>
+                  <Route element={<MainLayout />}>
+                    <Route path="/" element={<Home></Home>} />
+                    <Route
+                      path="/catalogos"
+                      element={<Catalogos></Catalogos>}
+                    />
+                    <Route path="/cursos" element={<Cursos></Cursos>} />
+                    <Route path="/generos" element={<Generos></Generos>} />
+                    <Route
+                      path="/estudiantes"
+                      element={<Estudiantes />}
+                    ></Route>
+                    <Route
+                      path="/estudiantes/:id"
+                      element={<DetallesEstudiantes />}
+                    />
+                    <Route
+                      path="/instructores"
+                      element={<Instructores></Instructores>}
+                    />
+                    <Route path="/sedes" element={<Sedes></Sedes>} />
+                  </Route>
+                </Routes>
+              </CursosProvider>
+            </InstructoresProvider>
           </EstudiantesProvider>
         </SedesProvider>
       </GenerosProvider>

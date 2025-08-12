@@ -11,7 +11,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import type { IntructorCurso } from "@/interfaces/Intructor";
+import { useGeneros } from "@/hooks/Generos/useGeneros";
+import { useSedes } from "@/hooks/Sedes/useSedes";
+import { useCursos } from "@/hooks/Cursos/useCursos";
+import type { CursoCreate } from "@/interfaces/Curso";
 import React, { useState } from "react";
 import { useForm /* Controller */ } from "react-hook-form";
 
@@ -19,37 +22,30 @@ type ModeType = "create" | "editing";
 interface CreateCursoProps {
   mode?: ModeType;
   triggerMessage: string;
-  icon: React.ReactNode
+  icon: React.ReactNode;
 }
-interface CursoForm {
-  nombre: string;
-  genero: string;
-  sede: string;
-  nivel: number;
-  precio_normal: number;
-  precio_apoyo: number;
-  instructores: IntructorCurso[];
-}
-
 export function CreateCurso({
   mode = "create",
   triggerMessage,
-  icon
+  icon,
 }: CreateCursoProps) {
   const [useMode] = useState<"create" | "editing">(mode);
-  const handleClick = (data: CursoForm) => {
+  const { sedes } = useSedes();
+  const { generos } = useGeneros();
+  const {cursoCreate} = useCursos()
+  const handleClick = (data: CursoCreate) => {
+    cursoCreate(data)
     console.log(data);
   };
-  const { register, /* control, */ handleSubmit } = useForm<CursoForm>({
+  const { register, /* control, */ handleSubmit } = useForm<CursoCreate>({
     mode: "onChange",
     defaultValues: {
       nombre: "",
-      genero: "",
-      sede: "",
+      genero_id: 0,
+      sede_id: 0,
       nivel: 1,
       precio_normal: 0,
-      precio_apoyo: 0,
-      instructores: [],
+      precio_apoyo: 0
     },
   });
 
@@ -57,10 +53,7 @@ export function CreateCurso({
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button>
-          <span>
-            {icon}
-          </span>{" "}
-          {triggerMessage}
+          <span>{icon}</span> {triggerMessage}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="w-200">
@@ -77,16 +70,23 @@ export function CreateCurso({
               <Input id="nombre" {...register("nombre")} />
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="genero">Genéro</Label>
-              <Input id="genero" {...register("genero")} />
+              <Label htmlFor="genero">Géneros</Label>
+              <select
+                id="genero"
+                {...register("genero_id", { valueAsNumber: true })}
+                className="border border-gray-300 rounded-md p-2 text-sm"
+              >
+                <option value="">Selecciona un Género</option>
+                {generos.map((genero) => (
+                  <option key={genero.id} value={genero.id}>
+                    {genero.nombre}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="grid gap-3">
               <Label htmlFor="nivel">Nivel</Label>
               <Input id="nivel" {...register("nivel")} />
-            </div>
-            <div className="grid gap-3 col-span-2">
-              <Label htmlFor="sede">Sede</Label>
-              <Input id="sede" {...register("sede")} />
             </div>
             <div className="grid gap-3">
               <Label htmlFor="precio_normal">Precio normal</Label>
@@ -96,6 +96,22 @@ export function CreateCurso({
               <Label htmlFor="precio_apoyo">Precio apoyo</Label>
               <Input id="precio_apoyo" {...register("precio_apoyo")} />
             </div>
+            <div className="grid gap-3 col-span-2">
+              <Label htmlFor="sede">Sede</Label>
+              <select
+                id="sede"
+                {...register("sede_id", { valueAsNumber: true })}
+                className="border border-gray-300 rounded-md p-2 text-sm"
+              >
+                <option value="">Selecciona una sede</option>
+                {sedes.map((sede) => (
+                  <option key={sede.id} value={sede.id}>
+                    {sede.nombre}
+                  </option>
+                ))}
+              </select>
+            </div>
+        
           </div>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>

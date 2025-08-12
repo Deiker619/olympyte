@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -9,9 +10,25 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useCursos } from "@/hooks/Cursos/useCursos";
+import {
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  IconAdjustmentsAlt,
+  IconPencilCheck,
+  IconPlus,
+  IconTrash,
+} from "@tabler/icons-react";
+import { Button } from "@/components/ui/button";
+import { AddInstructorCurso } from "./AddInstructorCurso";
 
 export const TableCursos = () => {
-  const { cursos, loading, error } = useCursos();
+  const { cursos, loading, error, cursoDelete, deleteIntructorCurso } = useCursos();
+  console.log(cursos);
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
   return (
@@ -26,6 +43,7 @@ export const TableCursos = () => {
           <TableHead>Sede</TableHead>
           <TableHead>Precio Normal</TableHead>
           <TableHead>Precio Apoyo</TableHead>
+          <TableHead>Opciones</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -39,15 +57,53 @@ export const TableCursos = () => {
               </TableCell>
               <TableCell>
                 {curso.instructores.map((instructor, index) => (
-                  <span key={index}>
-                    {instructor.nombre}
+                  <div key={index} className="">
+                    <span
+                     
+                      className="inline-flex gap-2 items-center justify-evenly"
+                    >
+                      {instructor.nombre}
+                      <Button className="size-8 cursor-pointer" variant={"secondary"} onClick={()=>deleteIntructorCurso(curso.id, instructor.id)}>
+                        <IconTrash className="size-4" ></IconTrash>
+                      </Button>
+                    </span>
                     <br />
-                  </span>
+                  </div>
                 ))}
               </TableCell>
               <TableCell>{curso.sede}</TableCell>
               <TableCell>{curso.precio_normal}</TableCell>
               <TableCell>{curso.precio_apoyo}</TableCell>
+              <TableCell>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <IconAdjustmentsAlt />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>Opciones</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => cursoDelete(curso.id)}>
+                      <span className="flex gap-2 items-center">
+                        <IconTrash /> Eliminar
+                      </span>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem asChild>
+                      <AddInstructorCurso
+                        curso={curso.id}
+                        icon={<IconPlus />}
+                        triggerMessage="Agregar Instructores"
+                      ></AddInstructorCurso>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem>
+                      <span className="flex gap-2 items-center">
+                        <IconPencilCheck /> Modificar
+                      </span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableCell>
             </>
           </TableRow>
         ))}

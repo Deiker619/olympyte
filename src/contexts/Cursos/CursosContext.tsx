@@ -1,0 +1,118 @@
+import { createContext, useEffect, useState } from "react";
+import type { Curso, CursoCreate } from "@/interfaces/Curso";
+import {
+  createCurso,
+  deleteCurso,
+  DeleteInstructorCurso,
+  getCursos,
+} from "@/services/Cursos/CursosServices";
+import { toast } from "sonner";
+import { AddInstructorCurso } from "@/services/Cursos/CursosServices";
+
+interface CursosContextType {
+  cursos: Curso[];
+  loading: boolean;
+  error: string | null;
+  cursoCreate: (curso: CursoCreate) => void;
+  cursoDelete: (id: number) => void;
+  addInstructorCurso: (id: number, instructorID: number) => void;
+  deleteIntructorCurso: (id: number, instructorID: number) => void;
+}
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const CursosContext = createContext<CursosContextType | undefined>(
+  undefined
+);
+
+export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
+  const [cursos, setCursos] = useState<Curso[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (cursos.length === 0) {
+      
+      fetch();
+    }
+  }, [cursos, setCursos]);
+
+  const cursoCreate = async (curso: CursoCreate) => {
+    try {
+      const response = await createCurso(curso);
+      if (response.status == 201) {
+        console.log(response.data);
+
+        toast.success("Curso creado correctamente");
+      }
+      // Aquí puedes agregar más lógica, p.ej. actualizar estado o mostrar mensaje
+    } catch (error) {
+      console.error("Error creando Curso:", error);
+    }
+  };
+  const fetch = async () => {
+        setLoading(true);
+        try {
+          const { data } = await getCursos();
+          setCursos(data.data);
+        } catch (err) {
+          setError("Error cargando Cursos");
+          console.error(err);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+  const cursoDelete = async (id: number) => {
+    try {
+      const response = await deleteCurso(id); // función que hace la llamada API para eliminar
+      if (response.status === 204 || response.status === 200) {
+        setCursos((prevEstudiantes) =>
+          prevEstudiantes.filter((e) => e.id !== id)
+        );
+      } else {
+        console.error("No se pudo eliminar el curso:", response);
+      }
+    } catch (error) {
+      console.error("Error al eliminar el curso:", error);
+    }
+  };
+
+  const addInstructorCurso = async (id: number, instructorID: number) => {
+    try {
+      const response = await AddInstructorCurso(id, instructorID); // API call
+      console.log(response.data)
+      if (response.status === 200 || response.status === 201) {
+        fetch()
+        toast.success('Instructor agregado correctamente al curso')
+      }
+    } catch (error) {
+      console.error("Error al actualizar el curso:", error);
+    }
+  };
+  const deleteIntructorCurso = async (id: number, instructorID: number) => {
+    try {
+      const response = await DeleteInstructorCurso(id, instructorID); // función que hace la llamada API para eliminar
+      if (response.status == 204 || response.status == 200) {
+        fetch()
+      }
+    } catch (error) {
+      console.error("Error al eliminar el curso:", error);
+    }
+  };
+
+  return (
+    <CursosContext.Provider
+      value={{
+        addInstructorCurso,
+        cursos,
+        loading,
+        cursoCreate,
+        error,
+        cursoDelete,
+        deleteIntructorCurso,
+      }}
+    >
+      {children}
+    </CursosContext.Provider>
+  );
+};

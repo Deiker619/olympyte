@@ -1,6 +1,6 @@
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
-import { IconAdjustmentsAlt } from '@tabler/icons-react';
+import { IconAdjustmentsAlt, IconTrash } from '@tabler/icons-react';
 import {
   Table,
   TableBody,
@@ -15,7 +15,7 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { useSedes } from "@/hooks/Sedes/useSedes";
 
 export const TableSedes = () => {
-  const { sedes, loading, error, deleteSedes } = useSedes();
+  const { sedes, loading, error, sedeDelete } = useSedes();
   console.log(sedes)
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
@@ -26,6 +26,8 @@ export const TableSedes = () => {
         <TableRow>
           <TableHead>ID</TableHead>
           <TableHead>Nombre de la Sede</TableHead>
+          <TableHead>Dirección</TableHead>
+          <TableHead>Teléfono</TableHead>
           <TableHead>Opciones</TableHead>
         </TableRow>
       </TableHeader>
@@ -35,8 +37,8 @@ export const TableSedes = () => {
             <>
               <TableCell className="font-medium p-4">{sede.id}</TableCell>
               <TableCell>{sede.nombre}</TableCell>
-              <TableCell>{sede.direccion}</TableCell>
-              <TableCell>{sede.telefono}</TableCell>
+              <TableCell>{sede.direccion ?? <p className="text-gray-500">Sin Dirección</p>}</TableCell>
+              <TableCell>{sede.telefono ?? <p className="text-gray-500">Sin teléfono</p>}</TableCell>
               <TableCell className="flex flex-col justify-start w-30">
                 <DropdownMenu>
                   <DropdownMenuTrigger>
@@ -45,7 +47,7 @@ export const TableSedes = () => {
                   <DropdownMenuContent>
                     <DropdownMenuLabel>Opciones</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => deleteSedes(sede.id)}>Eliminar Sede</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => sedeDelete(sede.id)}> <IconTrash></IconTrash> Eliminar Sede {sede.id}</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>

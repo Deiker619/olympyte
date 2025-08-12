@@ -1,21 +1,31 @@
-import { createContext, useEffect, useState  } from "react";
-import { getGeneros } from "@/services/Generos/GenerosServices";
+import { createContext, useEffect, useState } from "react";
+import {
+  createGenero,
+  getGeneros,
+  deleteGenero,
+} from "@/services/Generos/GenerosServices";
 import type { GeneroCreate, GeneroRequest } from "@/interfaces/Genero";
-import useLocalStorage from "@/hooks/useLocalStorage";
+import { toast } from "sonner";
 
 interface GenerosContextType {
   generos: GeneroRequest[];
   loading: boolean;
   error: string | null;
   addNewGenero: (genero: GeneroCreate) => void;
-  deleteGenero: (id: number) => void;
+  generoDelete: (id: number) => void;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const GenerosContext = createContext<GenerosContextType | undefined>(undefined);
+export const GenerosContext = createContext<GenerosContextType | undefined>(
+  undefined
+);
 
-export const GenerosProvider = ({ children }: { children: React.ReactNode }) => {
-  const [generos, setGeneros] = useLocalStorage<GeneroRequest[]>("generos", []);
+export const GenerosProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [generos, setGeneros] = useState<GeneroRequest[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -25,7 +35,7 @@ export const GenerosProvider = ({ children }: { children: React.ReactNode }) => 
         setLoading(true);
         try {
           const { data } = await getGeneros();
-          setGeneros("generos", data.data);
+          setGeneros(data.data);
         } catch (err) {
           setError("Error cargando géneros");
           console.error(err);
@@ -37,26 +47,44 @@ export const GenerosProvider = ({ children }: { children: React.ReactNode }) => 
     }
   }, [generos, setGeneros]);
 
-  const addNewGenero = (genero: GeneroCreate) => {
-    setGeneros("generos", (prevGeneros) => {
-      const nextId = (prevGeneros.at(-1)?.id ?? 0) + 1;
-      return [...prevGeneros, { id: nextId, nombre: genero.nombre }];
-    });
+  const addNewGenero = async (genero: GeneroCreate) => {
+    try {
+      const response = await createGenero(genero);
+
+      if (response.status === 201) {
+        const nuevoGenero: GeneroRequest = response.data;
+
+        setGeneros((prevGeneros) => [...prevGeneros, nuevoGenero]);
+        toast.success("Genéro creado correctamente");
+      } else {
+        console.error("No se pudo crear el género:", response);
+        toast.error("No se pudo crear el género");
+      }
+    } catch (error) {
+      console.error("Error al crear género:", error);
+    }
   };
 
-  const deleteGenero = (id: number) => {
-    setGeneros("generos", (prevGeneros) =>
-      prevGeneros.filter((g) => g.id !== id)
-    );
+  const generoDelete = async (id: number) => {
+    try {
+      const response = await deleteGenero(id);
+      if (response.status === 204 || response.status === 200) {
+        setGeneros((prevGeneros) => prevGeneros.filter((g) => g.id !== id));
+        toast.success("Genéro eliminado correctamente");
+      } else {
+        console.error("No se pudo eliminar el género:", response);
+        toast.error("No se pudo eliminar el género");
+      }
+    } catch (error) {
+      console.error("Error al eliminar el género:", error);
+    }
   };
 
   return (
     <GenerosContext.Provider
-      value={{ generos, loading, error, addNewGenero, deleteGenero }}
+      value={{ generos, loading, error, addNewGenero, generoDelete }}
     >
       {children}
     </GenerosContext.Provider>
   );
 };
-
-

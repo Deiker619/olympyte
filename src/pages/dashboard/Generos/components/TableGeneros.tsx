@@ -14,7 +14,7 @@ import { useGeneros } from "@/hooks/Generos/useGeneros";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 
 export const TableGeneros = () => {
-  const { generos, loading, error, deleteGenero } = useGeneros();
+  const { generos, loading, error, generoDelete } = useGeneros();
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
   return (
@@ -41,7 +41,7 @@ export const TableGeneros = () => {
                   <DropdownMenuContent>
                     <DropdownMenuLabel>Opciones</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => deleteGenero(genero.id)}>Eliminar Género</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => generoDelete(genero.id)}>Eliminar Género</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>

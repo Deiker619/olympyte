@@ -1,4 +1,5 @@
-import type { CursoHasEstudiante } from "./Curso";
+import type { Curso, CursoHasEstudiante } from "./Curso";
+import type { typeEstado } from "./Estados";
 import type { SedeHasEstudiante } from "./Sede";
 
 export interface Estudiante {
@@ -12,9 +13,12 @@ export interface Estudiante {
 }
 export type EstudianteHasCurso = Pick<Estudiante, 'id'| 'nombre' | 'apellido'> &{
   sedes_inscritas: SedeHasEstudiante[],
-  cursos: CursoHasEstudiante[],
+  cursos?: CursoHasEstudiante[],
 }
-export type EstudianteCreateCurso = Omit<EstudianteHasCurso, 'id' | 'sedes_inscritas'>
+
+
+
+
 export type EstudianteDetalles = Pick<Estudiante, 'id'|'nombre'|'apellido'>&{
   pagos_recientes: PagoReciente[]
   sedes_inscritas: SedeInscrita[];
@@ -33,13 +37,14 @@ export interface SedeInscrita {
   monto_pagado: number;
 }
 
-export interface Curso {
-  curso_id: number;
-  nombre: string;
-  tipo: "NORMAL" | "APOYO";
-  estado: "ACTIVO" | "SUSPENDIDO" | "APOYO-ACTIVO";
-  precio: number;
-  desde: string; // formato ISO
+
+export interface CursoEstududianteDetalles{
+  curso: Pick<Curso, 'id'|'nombre'|'sede'>
+  estado: typeEstado
+  estudiante_id: Pick<Estudiante, 'id'>
+  fecha_asignacion: string
+  tipo: 'NORMAL'|'OTRO'
+
 }
 
 export interface PagoReciente {

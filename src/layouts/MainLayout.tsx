@@ -6,6 +6,7 @@ import type { Ruta } from "@/interfaces/Ruta";
 import { IconBooks, IconBuildings, IconDashboard, IconChalkboardTeacher, IconDirections, IconFriends, IconListDetails } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import { Toaster } from "sonner";
 
 const rutas = [
   {
@@ -84,6 +85,8 @@ export const MainLayout = () => {
             </div>
           </div>
         </div>
+
+        <Toaster richColors />
       </SidebarInset>
     </SidebarProvider>
   );

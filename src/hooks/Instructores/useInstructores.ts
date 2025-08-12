@@ -1,27 +1,10 @@
-import { useState, useEffect } from "react";
-import { getCursos } from "@/services/Cursos/CursosServices";
-import type{ CursoRequest } from "@/interfaces/Curso";
+import { InstructoresContext } from "@/contexts/Instructores/InstructoresContext";
+import { useContext } from "react";
 
 export const useInstructores = () => {
-  const [instructores, setInstructores] = useState<CursoRequest[] | null>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchCursos = async () => {
-      try {
-        const { data } = await getCursos();
-        setInstructores(data.data);
-      } catch (err) {
-        setError("Error cargando cursos");
-        console.log(err)
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCursos();
-  }, []);
-
-  return { instructores, loading, error };
+  const context = useContext(InstructoresContext);
+  if (!context) {
+    throw new Error("useInstructoresContext debe usarse dentro de un useInstructoresContext");
+  }
+  return context;
 };

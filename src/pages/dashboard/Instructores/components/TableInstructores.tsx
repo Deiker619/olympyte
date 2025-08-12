@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/badge";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,17 +17,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useEstudiantes } from "@/hooks/Estudiantes/Estudiantes";
+import { useInstructores } from "@/hooks/Instructores/useInstructores";
 import {
   IconAdjustmentsAlt,
-  IconEye,
   IconPencilCheck,
   IconTrash,
 } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
 
-export const TableEstudiantes = () => {
-  const { estudiantes, loading, error, estudianteDelete } = useEstudiantes();
+
+export const TableInstructores = () => {
+  const { instructores, loading, error,instructorDelete  } = useInstructores();
+  console.log(instructores)
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
   return (
@@ -43,25 +43,14 @@ export const TableEstudiantes = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {estudiantes?.map((estudiante) => (
-          <TableRow key={estudiante.id}>
+        {instructores?.map((instructor) => (
+          <TableRow key={instructor.id}>
             <>
-              <TableCell className="font-medium p-2">{estudiante.id}</TableCell>
-              <TableCell>{estudiante.nombre}</TableCell>
-              <TableCell>{estudiante.apellido}</TableCell>
+              <TableCell className="font-medium p-2">{instructor.id}</TableCell>
+              <TableCell>{instructor.nombre}</TableCell>
+              <TableCell>{instructor.apellido}</TableCell>
               <TableCell>
-                <div className="flex flex-col space-y-1">
-                  {estudiante.cursos && estudiante.cursos.length > 0 ? (
-                    estudiante.cursos.map((curso, index) => (
-                      <span key={index} className="flex gap-2 w-auto">
-                        {curso.nombre}{" "}
-                        <Badge variant="default">{curso.estado}</Badge>
-                      </span>
-                    ))
-                  ) : (
-                    <p className="text-gray-400">No hay cursos inscritos</p>
-                  )}
-                </div>
+                {instructor.telefono}
               </TableCell>
               <TableCell>
                 <DropdownMenu>
@@ -72,7 +61,7 @@ export const TableEstudiantes = () => {
                     <DropdownMenuLabel>Opciones</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
-                      onClick={() => estudianteDelete(estudiante.id)}
+                      onClick={() => instructorDelete(instructor.id)}
                     >
                       <span className="flex gap-2 items-center">
                         <IconTrash /> Eliminar
@@ -83,13 +72,7 @@ export const TableEstudiantes = () => {
                         <IconPencilCheck /> Modificar
                       </span>
                     </DropdownMenuItem>
-                    <Link to={`/estudiantes/${estudiante.id}`}>
-                      <DropdownMenuItem>
-                        <span className="flex gap-2 items-center">
-                          <IconEye /> Ver detalles del estudiante
-                        </span>
-                      </DropdownMenuItem>
-                    </Link>
+                    
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>

@@ -11,8 +11,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useEstudiantes } from "@/hooks/Estudiantes/Estudiantes";
-import type { EstudianteHasCurso } from "@/interfaces/Estudiante";
+import { useInstructores } from "@/hooks/Instructores/useInstructores";
+import type { IntructorCreate } from "@/interfaces/Intructor";
 import { useState } from "react";
 import { useForm /* Controller */ } from "react-hook-form";
 
@@ -23,27 +23,28 @@ interface CreateCursoProps {
   icon: React.ReactNode;
 }
 
-export function AddEstudiante({
+export function AddInstructor({
   mode = "create",
   triggerMessage,
   icon,
 }: CreateCursoProps) {
   const [useMode] = useState<"create" | "editing">(mode);
-  const { estudianteCreate } = useEstudiantes();
-  const handleClick = (data: EstudianteHasCurso) => {
+  const { intructorCreate } = useInstructores();
+  const handleClick = (data: IntructorCreate) => {
     console.log(data);
-    estudianteCreate(data);
+    intructorCreate(data);
+
   };
-  const { register, /* control, */ handleSubmit } = useForm<EstudianteHasCurso>(
-    {
-      mode: "onChange",
-      defaultValues: {
-        id: 0,
-        nombre: "",
-        apellido: "",
-      },
-    }
-  );
+  const { register, /* control, */ handleSubmit } = useForm<IntructorCreate>({
+    mode: "onChange",
+    defaultValues: {
+      nombre: "",
+      apellido: "",
+      telefono: "",
+      email: "",
+      id: 0,
+    },
+  });
 
   return (
     <AlertDialog>
@@ -57,48 +58,35 @@ export function AddEstudiante({
           <AlertDialogHeader>
             <AlertDialogTitle>
               {useMode == "create"
-                ? "Inscribir Nuevo Estudiante"
-                : "Modificar Estudiante"}
+                ? "Registrar Nuevo Instructor"
+                : "Modificar Instructor"}
             </AlertDialogTitle>
             <AlertDialogDescription></AlertDialogDescription>
           </AlertDialogHeader>
           <div className="grid grid-cols-2 gap-3 mb-4">
             <div className="grid gap-3 ">
-              <Label htmlFor="nombre">Nombre del Estudiante</Label>
+              <Label htmlFor="nombre">Nombre</Label>
               <Input
                 id="nombre"
                 {...register("nombre", { required: "El nombre es requerido" })}
               />
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="apellido">Apellido del Estudiante</Label>
-              <Input id="apellido" {...register("apellido")} />
+              <Label htmlFor="apellido">Apellido</Label>
+              <Input id="apellido" {...register("apellido",  { required: "El apellido es requerido" })} />
             </div>
             <div className="grid gap-3 col-span-2">
-              <Label htmlFor="id">Cédula del Estudiante</Label>
-              <Input id="id" {...register("id")} />
+              <Label htmlFor="id">Cédula del Instructor</Label>
+              <Input id="id" {...register("id", { required: "La Cédula es requerida" })} />
             </div>
-            {/* <div className="grid col-span-2 gap-2 w-full border p-3 rounded-2xl">
-              <Label className="text-center">Sedes a Inscribir</Label>
-              <div className="grid-cols-2 grid gap-3 bg">
-                {sedes?.map((sede) => (
-                  <div key={sede.id}>
-                    <label
-                      htmlFor={"curso-" + sede.id}
-                      className="inline-flex gap-1 items-center text-sm"
-                    >
-                      <input
-                        id={"curso-" + sede.id}
-                        type="checkbox"
-                        value={sede.id}
-                        {...register("sedes_inscritas")}
-                      />
-                      {sede.nombre}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div> */}
+            <div className="grid gap-3 col-span-2">
+              <Label htmlFor="id">Email</Label>
+              <Input id="id" {...register("email")} />
+            </div>
+            <div className="grid gap-3 col-span-2">
+              <Label htmlFor="id">Télefono</Label>
+              <Input id="id" {...register("telefono",  { required: "El Télefono es requerido" })} />
+            </div>
           </div>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>

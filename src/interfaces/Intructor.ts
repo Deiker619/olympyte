@@ -10,5 +10,6 @@ export interface Instructor {
   updated_at: string; // Fecha de actualización (DATETIME)
 }
 
-export type IntructorCurso = Pick<Instructor, 'nombre'| 'apellido'|'id'>
-
+export type IntructorCreate = Omit<Instructor,  'created_at'|'updated_at'>
+export type InstructorCurso = Pick<Instructor, 'id'|'nombre'>
+export type InstructorAddCurso = Pick<InstructorCurso, 'id'>

@@ -8,9 +8,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { Curso } from "@/interfaces/Estudiante";
-export const TableDetallesCursos = ({cursos}:{cursos:Curso[]}) => {
-  console.log(cursos)
+import type { CursoEstududianteDetalles } from "@/interfaces/Estudiante";
+export const TableDetallesCursos = ({
+  cursos,
+}: {
+  cursos: CursoEstududianteDetalles[];
+}) => {
+  
+
   return (
     <Table>
       <TableCaption>Lista de Cursos inscritos.</TableCaption>
@@ -23,17 +28,18 @@ export const TableDetallesCursos = ({cursos}:{cursos:Curso[]}) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {cursos?.map((curso) => (
-          <TableRow key={curso.curso_id}>
-            <>
-              <TableCell>{curso.nombre}</TableCell>
-              <TableCell><Badge>{curso.tipo}</Badge></TableCell>
-              <TableCell>{curso.estado}</TableCell>
-              <TableCell>{curso.desde}</TableCell>
-
-
-            </>
-          </TableRow>
+        {
+          cursos.length == 0 && <p>No hay cursos inscritos</p>
+        }
+        {cursos.map((detalles) => (
+          <>
+            <TableCell>{detalles.curso.nombre}</TableCell>
+            <TableCell>
+              <Badge>{detalles.tipo}</Badge>
+            </TableCell>
+            <TableCell>{detalles.estado}</TableCell>
+            <TableCell>{detalles.fecha_asignacion}</TableCell>
+          </>
         ))}
       </TableBody>
     </Table>
