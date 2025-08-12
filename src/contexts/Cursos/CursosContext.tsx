@@ -41,7 +41,7 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
       const response = await createCurso(curso);
       if (response.status == 201) {
         console.log(response.data);
-
+        fetch()
         toast.success("Curso creado correctamente");
       }
       // Aquí puedes agregar más lógica, p.ej. actualizar estado o mostrar mensaje
@@ -66,14 +66,19 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await deleteCurso(id); // función que hace la llamada API para eliminar
       if (response.status === 204 || response.status === 200) {
-        setCursos((prevEstudiantes) =>
-          prevEstudiantes.filter((e) => e.id !== id)
+        setCursos((prevCursos) =>
+          prevCursos.filter((e) => e.id !== id)
         );
+
+        toast.success('Curso eliminado correctamente')
+
       } else {
         console.error("No se pudo eliminar el curso:", response);
+        toast.error('No se pudo eliminar el curso');
       }
     } catch (error) {
-      console.error("Error al eliminar el curso:", error);
+      console.error("Error al eliminar el curso:", error)
+      toast.error('Error al eliminar el curso');
     }
   };
 
@@ -94,9 +99,11 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
       const response = await DeleteInstructorCurso(id, instructorID); // función que hace la llamada API para eliminar
       if (response.status == 204 || response.status == 200) {
         fetch()
+        toast.success('Instructor eliminado correctamente al curso')
       }
     } catch (error) {
-      console.error("Error al eliminar el curso:", error);
+      console.error("Error al eliminar el instructor:", error);
+      toast.error('Error al eliminar el instructor')
     }
   };
 

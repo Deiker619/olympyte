@@ -25,6 +25,7 @@ import {
   IconTrash,
 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
+import { AddEstudiante } from "./AddEstudiantes";
 
 export const TableEstudiantes = () => {
   const { estudiantes, loading, error, estudianteDelete } = useEstudiantes();
@@ -78,10 +79,10 @@ export const TableEstudiantes = () => {
                         <IconTrash /> Eliminar
                       </span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <span className="flex gap-2 items-center">
-                        <IconPencilCheck /> Modificar
-                      </span>
+                    <DropdownMenuItem asChild>
+                      
+                        <AddEstudiante estudiante={estudiante} icon={<IconPencilCheck/>} mode="editing" triggerMessage="Modificar Estudiante"></AddEstudiante>
+                      
                     </DropdownMenuItem>
                     <Link to={`/estudiantes/${estudiante.id}`}>
                       <DropdownMenuItem>
