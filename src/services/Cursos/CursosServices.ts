@@ -1,6 +1,6 @@
 
 import api from "@/api/api";
-import type { CursoCreate } from "@/interfaces/Curso";
+import type { CursoCreate, RoosterCreate } from "@/interfaces/Curso";
 
 export const getCursos = async () => {
   const response = await api.get("cursos"); // ruta relativa al baseURL
@@ -16,6 +16,10 @@ export const deleteCurso = async (id:number|string) => {
 };
 export const AddInstructorCurso = async (id:number|string, instructorID:number|string) => {
   const response = await api.post(`cursos/${id}/instructores/${instructorID}`); // ruta relativa al baseURL
+  return response;
+};
+export const AddEstudianteCurso = async (data:RoosterCreate) => {
+  const response = await api.post(`asignaciones-curso`, data); // ruta relativa al baseURL
   return response;
 };
 export const UpdateCurso = async (id:number|string, curso:CursoCreate) => {

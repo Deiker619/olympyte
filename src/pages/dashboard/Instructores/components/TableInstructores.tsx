@@ -33,13 +33,13 @@ export const TableInstructores = () => {
   if (error) return <p>{error}</p>;
   return (
     <Table>
-      <TableCaption>Lista de Estudiantes de Olimpo.</TableCaption>
+      <TableCaption>Lista de Instructores de Olimpo.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Cédula</TableHead>
           <TableHead>Nombre</TableHead>
           <TableHead>Apellido</TableHead>
-          <TableHead>Cursos</TableHead>
+          <TableHead>Télefono</TableHead>
           <TableHead>Opciones</TableHead>
         </TableRow>
       </TableHeader>

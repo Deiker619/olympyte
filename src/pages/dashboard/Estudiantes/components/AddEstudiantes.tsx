@@ -80,12 +80,12 @@ export function AddEstudiante({
             </AlertDialogTitle>
             <AlertDialogDescription></AlertDialogDescription>
           </AlertDialogHeader>
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            <div className="grid gap-3">
+          <div className="grid grid-cols-2  gap-3 mb-4">
+            <div className="grid gap-3 col-span-2 md:col-span-1">
               <Label htmlFor="nombre">Nombre</Label>
               <Input id="nombre" {...register("nombre", { required: true })} />
             </div>
-            <div className="grid gap-3">
+            <div className="grid gap-3 col-span-2 md:col-span-1">
               <Label htmlFor="apellido">Apellido</Label>
               <Input id="apellido" {...register("apellido")} />
             </div>

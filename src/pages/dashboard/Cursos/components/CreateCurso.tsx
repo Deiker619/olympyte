@@ -51,7 +51,7 @@ export function CreateCurso({
       nombre: "",
       genero_id: 0,
       sede_id: 0,
-      nivel: 1,
+      nivel: "",
       precio_normal: 0,
       precio_apoyo: 0,
     },
@@ -99,7 +99,7 @@ export function CreateCurso({
               <Label htmlFor="nombre">Nombre del Curso</Label>
               <Input id="nombre" {...register("nombre")} />
             </div>
-            <div className="grid gap-3">
+            <div className="grid gap-3 md:col-span-1 col-span-2">
               <Label htmlFor="genero">Géneros</Label>
               <select
                 id="genero"
@@ -122,12 +122,11 @@ export function CreateCurso({
                 </p>
               )}
             </div>
-            <div className="grid gap-3">
+            <div className="grid gap-3  md:col-span-1 col-span-2">
               <Label htmlFor="nivel">Nivel</Label>
               <Input
                 id="nivel"
-                type="number"
-                {...register("nivel", { valueAsNumber: true })}
+                {...register("nivel")}
               />
             </div>
             <div className="grid gap-3">

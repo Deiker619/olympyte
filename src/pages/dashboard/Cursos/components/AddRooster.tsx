@@ -9,9 +9,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useCursos } from "@/hooks/Cursos/useCursos";
 import { useEstudiantes } from "@/hooks/Estudiantes/Estudiantes";
-import type {  RoosterCreate } from "@/interfaces/Curso";
+import type { RoosterCreate } from "@/interfaces/Curso";
 import { useState } from "react";
 import { useForm /* Controller */ } from "react-hook-form";
 
@@ -20,7 +22,7 @@ interface CreateRoosterProps {
   mode?: ModeType;
   triggerMessage: string;
   icon: React.ReactNode;
-  curso?: {
+  curso: {
     nombre: string,
     id: number
   };
@@ -35,18 +37,23 @@ export function AddRooster({
 }: CreateRoosterProps) {
   const [useMode] = useState<"create" | "editing">(mode);
   const { estudiantes } = useEstudiantes();
+  const { addEstudianteCurso } = useCursos()
 
   const { register, handleSubmit } = useForm<RoosterCreate>({
     mode: "onChange",
     defaultValues: {
-        estudiante_id: 0 ,
+      estudiante_id: 0,
+      fecha_asignacion: ""
 
     },
   });
 
 
   const handleClick = (data: RoosterCreate) => {
-        console.log(data, curso)
+    data.curso_id = curso?.id
+    console.log(data)
+    addEstudianteCurso(data)
+
   };
 
   return (
@@ -75,22 +82,44 @@ export function AddRooster({
             </AlertDialogTitle>
             <AlertDialogDescription></AlertDialogDescription>
           </AlertDialogHeader>
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            <div className="grid gap-3 col-span-2 mb-3">
-            <Label htmlFor="sede">Estudiantes</Label>
-            <select
-              id="sede"
-              {...register("estudiante_id", { valueAsNumber: true })}
-              className="border border-gray-300 rounded-md p-2 text-sm"
-            >
-              <option value="">Selecciona un Estudiante</option>
-              {estudiantes.map((estudiante) => (
-                <option key={estudiante.id} value={estudiante.id}>
-                  {estudiante.nombre}  {estudiante.apellido} - {estudiante.id}
+          <div className="grid grid-cols-2 gap-3 mb-3 ">
+            <div className="grid gap-3 col-span-2 ">
+              <Label htmlFor="sede">Estudiante</Label>
+              <select
+                id="sede"
+                {...register("estudiante_id", { valueAsNumber: true })}
+                className="border border-gray-300 rounded-md p-2 text-sm"
+              >
+                <option value="">Selecciona un Estudiante</option>
+                {estudiantes.map((estudiante) => (
+                  <option key={estudiante.id} value={estudiante.id}>
+                    {estudiante.nombre}  {estudiante.apellido} - {estudiante.id}
+                  </option>
+                ))}
+              </select>
+
+            </div>
+            <div className="grid gap-3 col-span-2">
+              <Label htmlFor="nombre">Tipo</Label>
+              <select
+                id="tipo"
+                {...register("tipo", { required: 'El tipo es requerido' })}
+                className="border border-gray-300 rounded-md p-2 text-sm"
+              >
+                <option value="">Selecciona un Tipo</option>
+
+                <option value='APOYO'>
+                  Apoyo
                 </option>
-              ))}
-            </select>
-            
+                <option value='NORMAL'>
+                  Normal
+                </option>
+
+              </select>
+            </div>
+            <div className="grid gap-3 col-span-2">
+              <Label htmlFor="fecha_asignacion">Fecha de asignación</Label>
+              <Input type="date" id="fecha_asignacion" {...register("fecha_asignacion")} />
             </div>
           </div>
           <AlertDialogFooter>

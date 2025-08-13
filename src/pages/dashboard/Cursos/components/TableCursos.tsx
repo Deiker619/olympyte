@@ -23,11 +23,13 @@ import {
   IconPencilCheck,
   IconPlus,
   IconTrash,
+  IconUserPlus,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { AddInstructorCurso } from "./AddInstructorCurso";
 import { CreateCurso } from "./CreateCurso";
 import { Link } from "react-router-dom";
+import { AddRooster } from "./AddRooster";
 
 
 export const TableCursos = () => {
@@ -122,9 +124,10 @@ export const TableCursos = () => {
                       </DropdownMenuItem>
                     </Link>
 
-                   {/*  <DropdownMenuItem asChild>
-                      <AddRooster icon={<IconUserPlus/>} triggerMessage="Agregar Nuevo Rooster" curso={{nombre: curso.nombre, id: curso.id}}></AddRooster>
-                    </DropdownMenuItem> */}
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <AddRooster icon={<IconUserPlus/>} triggerMessage="Agregar estudiante al curso" curso={{nombre: curso.nombre, id: curso.id}}></AddRooster>
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>

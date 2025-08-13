@@ -24,7 +24,7 @@ export const Home = () => {
         ingresos={kpis?.kpis.ingresos_mes_usd ?? 0}
         tasa_asitencia={kpis?.kpis.tasa_asistencia ?? 0}
       />
-      <div className="px-4 lg:px-6 grid grid-cols-3 h-80 gap-4">
+      <div className="px-4 lg:px-6 grid grid-cols-3 h-auto gap-4">
         <div className="md:col-span-1 col-span-3 flex flex-col border rounded-2xl bg-card shadow-sm">
           <div className="flex justify-center items-center h-20">
               <p className="text-xl font-semibold">Top curso #1 🏆</p>

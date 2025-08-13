@@ -38,7 +38,7 @@ export const SedesProvider = ({ children }: { children: React.ReactNode }) => {
           const { data } = await getSedes();
           setSedes(data.data);
         } catch (err) {
-          setError("Error cargando géneros");
+          setError("Error cargando Sedes");
           console.error(err);
         } finally {
           setLoading(false);

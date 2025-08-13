@@ -44,7 +44,7 @@ export const EstudiantesProvider = ({
           const { data } = await getEstudiantes();
           setEstudiantes(data.data);
         } catch (err) {
-          setError("Error cargando géneros");
+          setError("Error cargando Estudiantes");
           console.error(err);
         } finally {
           setLoading(false);

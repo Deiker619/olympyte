@@ -91,7 +91,7 @@ export function AddInstructor({
           </AlertDialogHeader>
 
           <div className="grid grid-cols-2 gap-3 mb-4">
-            <div className="grid gap-3">
+            <div className="grid gap-3  md:col-span-1 col-span-2">
               <Label htmlFor="nombre">Nombre</Label>
               <Input
                 id="nombre"
@@ -102,7 +102,7 @@ export function AddInstructor({
               )}
             </div>
 
-            <div className="grid gap-3">
+            <div className="grid gap-3  md:col-span-1 col-span-2">
               <Label htmlFor="apellido">Apellido</Label>
               <Input
                 id="apellido"

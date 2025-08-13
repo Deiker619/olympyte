@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
-import type { Curso, CursoCreate } from "@/interfaces/Curso";
+import type { Curso, CursoCreate, RoosterCreate } from "@/interfaces/Curso";
 import {
+  AddEstudianteCurso,
   createCurso,
   deleteCurso,
   DeleteInstructorCurso,
@@ -19,6 +20,7 @@ interface CursosContextType {
   addInstructorCurso: (id: number, instructorID: number) => void;
   deleteIntructorCurso: (id: number, instructorID: number) => void;
   cursoUpdate: (id: number, curso: CursoCreate) =>void;
+  addEstudianteCurso: (data:RoosterCreate) =>void
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -105,6 +107,20 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const addEstudianteCurso = async (data: RoosterCreate) => {
+    try {
+      const response = await AddEstudianteCurso(data); 
+      console.log(response.data);
+      if (response.status === 200 || response.status === 201) {
+        fetch();
+        toast.success("Estudiante agregado correctamente al curso");
+      }
+    } catch (error) {
+      console.error("Error al actualizar el curso:", error);
+      toast.error("No se pudo asignar el estudiante al curso");
+    }
+  };
+
   const deleteIntructorCurso = async (id: number, instructorID: number) => {
     try {
       const response = await DeleteInstructorCurso(id, instructorID);
@@ -128,7 +144,8 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
         error,
         cursoDelete,
         deleteIntructorCurso,
-        cursoUpdate
+        cursoUpdate,
+        addEstudianteCurso
       }}
     >
       {children}

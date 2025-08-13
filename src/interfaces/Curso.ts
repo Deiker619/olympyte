@@ -1,4 +1,4 @@
-type Tipo = "NORMAL" | "OTRO_TIPO"; 
+type Tipo = "APOYO" | "NORMAL"; 
 type Estado = "ACTIVO" | "INACTIVO"; 
 
 import type {   typeEstado } from "./Estados";
@@ -18,7 +18,7 @@ export interface Curso {
     nombre: string
   }; 
   instructores: InstructorCurso[]; // FK -> Instructor.id
-  nivel?: number | null; // Nivel relativo dentro del género/sede (1, 2, 3...)
+  nivel?: string | null; // Nivel relativo dentro del género/sede (1, 2, 3...)
   precio_normal: number; // DECIMAL(8,2)
   precio_apoyo: number; // DECIMAL(8,2)
   created_at: string; // DATETIME en formato ISO o YYYY-MM-DD HH:mm:ss
@@ -31,7 +31,7 @@ export type CursoCreate ={
   nombre: string,
   genero_id: number,
   sede_id: number,
-  nivel?: number | null,
+  nivel?: string | null,
   precio_normal: number,
   precio_apoyo: number
 }
@@ -62,4 +62,6 @@ export interface Rooster {
 }
 export type RoosterCreate = Pick<Rooster, 'tipo'| 'estado'> &{
   estudiante_id: number
+  curso_id:number,
+  fecha_asignacion:string
 }
