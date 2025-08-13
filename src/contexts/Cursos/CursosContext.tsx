@@ -10,6 +10,7 @@ import {
 } from "@/services/Cursos/CursosServices";
 import { toast } from "sonner";
 import { AddInstructorCurso } from "@/services/Cursos/CursosServices";
+import { useEstudiantes } from "@/hooks/Estudiantes/Estudiantes";
 
 interface CursosContextType {
   cursos: Curso[];
@@ -32,6 +33,7 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
   const [cursos, setCursos] = useState<Curso[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { fetchEstudiante } = useEstudiantes()
 
   useEffect(() => {
     if (cursos.length === 0) {
@@ -69,7 +71,7 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
       const response = await deleteCurso(id); 
       if (response.status === 204 || response.status === 200) {
         setCursos((prevCursos) => prevCursos.filter((e) => e.id !== id));
-
+        fetchEstudiante();
         toast.success("Curso eliminado correctamente");
       } else {
         console.error("No se pudo eliminar el curso:", response);
@@ -112,7 +114,7 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
       const response = await AddEstudianteCurso(data); 
       console.log(response.data);
       if (response.status === 200 || response.status === 201) {
-        fetch();
+        fetchEstudiante()
         toast.success("Estudiante agregado correctamente al curso");
       }
     } catch (error) {
@@ -126,6 +128,7 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
       const response = await DeleteInstructorCurso(id, instructorID);
       if (response.status == 204 || response.status == 200) {
         fetch();
+        
         toast.success("Instructor eliminado correctamente al curso");
       }
     } catch (error) {

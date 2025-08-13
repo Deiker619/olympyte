@@ -57,7 +57,7 @@ export const DetallesEstudiantes = () => {
       </div>
 
       <div className="grid md:grid-cols-2 grid-cols-1 h-auto md:h-150  gap-4">
-        <div className="border rounded-2xl flex flex-col p-2">
+        <div className="border rounded-2xl md:col-span-1 col-span-2 flex flex-col p-2">
           <div className="p-4 text-lg flex items-center gap-4">
             <IconCashBanknote />
             <p>Pagos Recientes</p>
@@ -66,7 +66,7 @@ export const DetallesEstudiantes = () => {
           <TableDetallesPagos pagos={pagosEstudiante ?? []} />
         </div>
 
-        <div className="border rounded-2xl flex flex-col p-2">
+        <div className="border rounded-2xl md:col-span-1 col-span-2 flex flex-col p-2">
           <div className="p-4 text-lg flex items-center gap-4">
             <IconCashBanknote />
             <p>Cursos</p>

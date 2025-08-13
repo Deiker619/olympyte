@@ -14,7 +14,7 @@ export const TableDetallesCursos = ({
 }: {
   cursos: CursoEstududianteDetalles[];
 }) => {
-  
+
 
   return (
     <Table>
@@ -31,14 +31,16 @@ export const TableDetallesCursos = ({
         {
           cursos.length == 0 && <p>No hay cursos inscritos</p>
         }
-        {cursos.map((detalles) => (
+        {cursos.map((detalles, index) => (
           <>
-            <TableCell>{detalles.curso.nombre}</TableCell>
-            <TableCell>
-              <Badge>{detalles.tipo}</Badge>
-            </TableCell>
-            <TableCell>{detalles.estado}</TableCell>
-            <TableCell>{detalles.fecha_asignacion}</TableCell>
+            <TableRow key={index}>
+              <TableCell>{detalles.curso.nombre}</TableCell>
+              <TableCell>
+                <Badge>{detalles.tipo}</Badge>
+              </TableCell>
+              <TableCell>{detalles.estado}</TableCell>
+              <TableCell>{detalles.fecha_asignacion}</TableCell>
+            </TableRow>
           </>
         ))}
       </TableBody>

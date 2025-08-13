@@ -19,7 +19,8 @@ interface EstudiantesContextType {
   estudianteDelete: (id: number) => void;
   getEstudiante: (id: string) => Promise<EstudianteDetalles | null>; // 👈 async
   estudianteCreate: (estudiante: EstudianteHasCurso) => void;
-  updateEstudiante: (id: number, estudiante: EstudianteHasCurso)=> void;
+  updateEstudiante: (id: number, estudiante: EstudianteHasCurso) => void;
+  fetchEstudiante: ()=>void;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -38,26 +39,27 @@ export const EstudiantesProvider = ({
 
   useEffect(() => {
     if (estudiantes.length === 0) {
-      const fetch = async () => {
-        setLoading(true);
-        try {
-          const { data } = await getEstudiantes();
-          setEstudiantes(data.data);
-        } catch (err) {
-          setError("Error cargando Estudiantes");
-          console.error(err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetch();
+
+      fetchEstudiante();
     }
   }, [estudiantes, setEstudiantes]);
 
+  const fetchEstudiante = async () => {
+    setLoading(true);
+    try {
+      const { data } = await getEstudiantes();
+      setEstudiantes(data.data);
+    } catch (err) {
+      setError("Error cargando Estudiantes");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   const estudianteDelete = async (id: number) => {
     try {
-      const response = await deleteEstudiantes (id); // función que hace la llamada API para eliminar
-      if (response.status === 204 || response.status === 200 ) {
+      const response = await deleteEstudiantes(id); // función que hace la llamada API para eliminar
+      if (response.status === 204 || response.status === 200) {
         setEstudiantes((prevEstudiantes) =>
           prevEstudiantes.filter((e) => e.id !== id)
         );
@@ -99,29 +101,29 @@ export const EstudiantesProvider = ({
     }
   };
   const updateEstudiante = async (id: number, estudiante: EstudianteHasCurso) => {
-  try {
-    const response = await editEstudiante(id, estudiante); // aquí usarías PATCH o PUT según tu API
+    try {
+      const response = await editEstudiante(id, estudiante); // aquí usarías PATCH o PUT según tu API
 
-    if (response.status === 200) {
-      console.log("Estudiante actualizado:", response);
+      if (response.status === 200) {
+        console.log("Estudiante actualizado:", response);
 
-      // Actualizar el estado local
-      setEstudiantes((prevEstudiantes) =>
-        prevEstudiantes.map((e) =>
-          e.id === id ? response.data : e
-        )
-      );
+        // Actualizar el estado local
+        setEstudiantes((prevEstudiantes) =>
+          prevEstudiantes.map((e) =>
+            e.id === id ? response.data : e
+          )
+        );
 
-      toast.success("Estudiante actualizado correctamente");
-    } else {
-      console.error("No se pudo actualizar el estudiante:", response);
-      toast.error("No se pudo actualizar el estudiante");
+        toast.success("Estudiante actualizado correctamente");
+      } else {
+        console.error("No se pudo actualizar el estudiante:", response);
+        toast.error("No se pudo actualizar el estudiante");
+      }
+    } catch (error) {
+      console.error("Error actualizando estudiante:", error);
+      toast.error("Error al actualizar estudiante");
     }
-  } catch (error) {
-    console.error("Error actualizando estudiante:", error);
-    toast.error("Error al actualizar estudiante");
-  }
-};
+  };
 
 
   return (
@@ -133,7 +135,8 @@ export const EstudiantesProvider = ({
         estudianteDelete,
         getEstudiante,
         estudianteCreate,
-        updateEstudiante
+        updateEstudiante,
+        fetchEstudiante
       }}
     >
       {children}

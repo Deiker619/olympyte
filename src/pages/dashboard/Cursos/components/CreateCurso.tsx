@@ -39,7 +39,6 @@ export function CreateCurso({
   const { sedes } = useSedes();
   const { generos } = useGeneros();
   const { cursoCreate, cursoUpdate } = useCursos();
-
   const {
     register,
     handleSubmit,
@@ -60,13 +59,18 @@ export function CreateCurso({
   // Cuando cambia el curso a editar, resetea el formulario con esos datos
   useEffect(() => {
     if (curso) {
-      reset(curso);
+      reset({
+        ...curso,
+        genero_id: curso.genero?.id ?? 0,
+        sede_id: curso.sede?.id??0
+      });
     }
   }, [curso, reset]);
 
   const onSubmit = (data: CursoCreate) => {
     if (useMode === "create") {
       cursoCreate(data);
+      console.log(data);
     } else {
       console.log(data);
       cursoUpdate(id ?? 0, data);
