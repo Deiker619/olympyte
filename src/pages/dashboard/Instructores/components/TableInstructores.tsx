@@ -23,6 +23,7 @@ import {
   IconPencilCheck,
   IconTrash,
 } from "@tabler/icons-react";
+import { AddInstructor } from "./AddInstructor";
 
 
 export const TableInstructores = () => {
@@ -67,10 +68,8 @@ export const TableInstructores = () => {
                         <IconTrash /> Eliminar
                       </span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <span className="flex gap-2 items-center">
-                        <IconPencilCheck /> Modificar
-                      </span>
+                    <DropdownMenuItem asChild>
+                      <AddInstructor instructor={instructor} id={instructor.id} icon={<IconPencilCheck/>} triggerMessage="Modificar Instructor" mode="editing" />
                     </DropdownMenuItem>
                     
                   </DropdownMenuContent>

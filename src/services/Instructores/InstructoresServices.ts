@@ -14,3 +14,8 @@ export const deleteInstructor = async (id:number|string) => {
   const response = await api.delete(`instructores/${id}`); // ruta relativa al baseURL
   return response;
 };
+
+export const editInstructor = async (id: number, instructor: IntructorCreate) => {
+  const response = await api.put(`instructores/${id}`, instructor);
+  return response;
+};

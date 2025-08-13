@@ -1,4 +1,3 @@
-
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -13,53 +12,72 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useGeneros } from "@/hooks/Generos/useGeneros";
-import React, { useState } from "react";
-import { useForm /* Controller */ } from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 type ModeType = "create" | "editing";
-interface CreateCursoProps {
+interface GeneroForm {
+  id?: number;
+  nombre: string;
+}
+interface CreateGeneroProps {
   mode?: ModeType;
   triggerMessage: string;
-  icon: React.ReactNode
-}
-interface GeneroForm {
-  nombre: string;
+  icon: React.ReactNode;
+  genero?: GeneroForm;
+  id?:number
 }
 
 export function AddGeneros({
   mode = "create",
   triggerMessage,
-  icon
-}: CreateCursoProps) {
+  icon,
+  genero,
+  id
+}: CreateGeneroProps) {
   const [useMode] = useState<"create" | "editing">(mode);
-  const { addNewGenero } = useGeneros()
+  const { addNewGenero, generoUpdate } = useGeneros();
+
+  const { register, reset, handleSubmit, formState: { isValid, errors } } =
+    useForm<GeneroForm>({
+      mode: "onChange",
+      defaultValues: genero || { nombre: "" },
+    });
+
+  useEffect(() => {
+    if (genero) reset(genero);
+  }, [genero, reset]);
 
   const handleClick = (data: GeneroForm) => {
-    addNewGenero(data)
-    reset()
+    if (useMode === "create") {
+      addNewGenero(data);
+    } else if (id) {
+      generoUpdate(id, data);
+    }
+    reset();
   };
-  const { register, /* control, */ reset, handleSubmit, formState: { isValid, errors } } = useForm<GeneroForm>({
-    mode: "onChange",
-    defaultValues: {
-      nombre: "",
-    },
-  });
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button>
-          <span>
-            {icon}
-          </span>{" "}
-          {triggerMessage}
-        </Button>
+        {useMode === "create"
+          ?
+          <Button>
+            <span>{icon}</span> {triggerMessage}
+          </Button>
+          :
+          <button className="focus:bg-accent hover:bg-accent w-full focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4">
+            {icon} {triggerMessage}
+          </button>
+
+        }
       </AlertDialogTrigger>
+      <AlertDialogDescription></AlertDialogDescription>
       <AlertDialogContent className="w-200">
         <form onSubmit={handleSubmit(handleClick)}>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              {useMode == "create" ? "Crear Género" : "Modificar Curso"}
+              {useMode === "create" ? "Crear Género" : "Modificar Género"}
             </AlertDialogTitle>
             <AlertDialogDescription></AlertDialogDescription>
           </AlertDialogHeader>
@@ -70,16 +88,16 @@ export function AddGeneros({
                 id="nombre"
                 {...register("nombre", { required: "El nombre es obligatorio" })}
               />
-
               {errors.nombre && (
                 <p className="text-red-600 text-sm">{errors.nombre.message}</p>
               )}
             </div>
-
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => reset()}>Cancelar</AlertDialogCancel>
-            <Button type="submit" disabled={!isValid} variant={"default"}>
+            <AlertDialogCancel onClick={() => reset()}>
+              Cancelar
+            </AlertDialogCancel>
+            <Button type="submit" disabled={!isValid}>
               Guardar
             </Button>
           </AlertDialogFooter>

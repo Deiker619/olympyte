@@ -18,6 +18,7 @@ export type EstudianteHasCurso = Pick<Estudiante, 'id'| 'nombre' | 'apellido'> &
 
 
 
+export type EstudianteHasRooster = Pick<Estudiante, 'id'|'nombre'>
 
 export type EstudianteDetalles = Pick<Estudiante, 'id'|'nombre'|'apellido'>&{
   pagos_recientes: PagoReciente[]
@@ -37,6 +38,10 @@ export interface SedeInscrita {
   monto_pagado: number;
 }
 
+export type estudianteAsignSede = Omit<SedeInscrita,'nombre' >&{
+  estudiante_id: number
+}
+
 
 export interface CursoEstududianteDetalles{
   curso: Pick<Curso, 'id'|'nombre'|'sede'>
@@ -49,6 +54,16 @@ export interface CursoEstududianteDetalles{
 
 export interface PagoReciente {
   pago_id: number;
+  curso_id: number;
+  mes: number;
+  anio: number;
+  monto: number;
+  fecha: string; // formato ISO
+  metodo_pago: "EFECTIVO" | "ZELLE" | "TRANSFERENCIA" | string;
+  nota: string;
+}
+export interface PagoCreate {
+  estudiante_id:number
   curso_id: number;
   mes: number;
   anio: number;

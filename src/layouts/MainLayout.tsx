@@ -3,7 +3,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import type { Ruta } from "@/interfaces/Ruta";
-import { IconBooks, IconBuildings, IconDashboard, IconChalkboardTeacher, IconDirections, IconFriends, IconListDetails } from "@tabler/icons-react";
+import { IconBooks, IconBuildings, IconDashboard, IconChalkboardTeacher, IconDirections, IconFriends } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Toaster } from "sonner";
@@ -13,12 +13,6 @@ const rutas = [
     title: "Dashboard",
     url: "/",
     icon: IconDashboard,
-    status: false
-  },
-  {
-    title: "Catálogos",
-    url: "/catalogos",
-    icon: IconListDetails,
     status: false
   },
   {
@@ -51,6 +45,7 @@ const rutas = [
     icon: IconBuildings,
     status: false
   },
+
 ]
 export const MainLayout = () => {
   const location = useLocation()

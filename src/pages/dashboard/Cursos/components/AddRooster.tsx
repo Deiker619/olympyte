@@ -9,49 +9,44 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useEstudiantes } from "@/hooks/Estudiantes/Estudiantes";
-import type { EstudianteHasCurso } from "@/interfaces/Estudiante";
-import { useEffect, useState } from "react";
+import type {  RoosterCreate } from "@/interfaces/Curso";
+import { useState } from "react";
 import { useForm /* Controller */ } from "react-hook-form";
 
 type ModeType = "create" | "editing";
-interface CreateCursoProps {
+interface CreateRoosterProps {
   mode?: ModeType;
   triggerMessage: string;
   icon: React.ReactNode;
-  estudiante?: EstudianteHasCurso;
-  id?:number
+  curso?: {
+    nombre: string,
+    id: number
+  };
 
 }
 
-export function AddEstudiante({
+export function AddRooster({
   mode = "create",
   triggerMessage,
   icon,
-  estudiante,
-  id
-}: CreateCursoProps) {
+  curso,
+}: CreateRoosterProps) {
   const [useMode] = useState<"create" | "editing">(mode);
-  const { estudianteCreate,updateEstudiante } = useEstudiantes();
+  const { estudiantes } = useEstudiantes();
 
-  const { register, handleSubmit, reset } = useForm<EstudianteHasCurso>({
+  const { register, handleSubmit } = useForm<RoosterCreate>({
     mode: "onChange",
-    defaultValues: estudiante || { id: 0, nombre: "", apellido: "" },
+    defaultValues: {
+        estudiante_id: 0 ,
+
+    },
   });
 
-  useEffect(() => {
-    if (estudiante) reset(estudiante);
-  }, [estudiante, reset]);
 
-  const handleClick = (data: EstudianteHasCurso) => {
-    if (useMode === "create") {
-      estudianteCreate(data);
-    } else {
-      console.log(data.id, data)
-      updateEstudiante(id??0, data)
-    }
+  const handleClick = (data: RoosterCreate) => {
+        console.log(data, curso)
   };
 
   return (
@@ -81,17 +76,21 @@ export function AddEstudiante({
             <AlertDialogDescription></AlertDialogDescription>
           </AlertDialogHeader>
           <div className="grid grid-cols-2 gap-3 mb-4">
-            <div className="grid gap-3">
-              <Label htmlFor="nombre">Nombre</Label>
-              <Input id="nombre" {...register("nombre", { required: true })} />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="apellido">Apellido</Label>
-              <Input id="apellido" {...register("apellido")} />
-            </div>
-            <div className="grid gap-3 col-span-2">
-              <Label htmlFor="id">Cédula</Label>
-              <Input id="id" {...register("id")} />
+            <div className="grid gap-3 col-span-2 mb-3">
+            <Label htmlFor="sede">Estudiantes</Label>
+            <select
+              id="sede"
+              {...register("estudiante_id", { valueAsNumber: true })}
+              className="border border-gray-300 rounded-md p-2 text-sm"
+            >
+              <option value="">Selecciona un Estudiante</option>
+              {estudiantes.map((estudiante) => (
+                <option key={estudiante.id} value={estudiante.id}>
+                  {estudiante.nombre}  {estudiante.apellido} - {estudiante.id}
+                </option>
+              ))}
+            </select>
+            
             </div>
           </div>
           <AlertDialogFooter>

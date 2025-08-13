@@ -13,3 +13,7 @@ export const deleteGenero = async (id:number | string) => {
   const response = await api.delete(`generos/${id}`); // ruta relativa al baseURL
   return response;
 };
+export const editGenero = async (id: number, genero: GeneroCreate) => {
+  const response = await api.put(`generos/${id}`, genero);
+  return response;
+};

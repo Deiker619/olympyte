@@ -5,6 +5,7 @@ import {
   deleteCurso,
   DeleteInstructorCurso,
   getCursos,
+  UpdateCurso,
 } from "@/services/Cursos/CursosServices";
 import { toast } from "sonner";
 import { AddInstructorCurso } from "@/services/Cursos/CursosServices";
@@ -17,6 +18,7 @@ interface CursosContextType {
   cursoDelete: (id: number) => void;
   addInstructorCurso: (id: number, instructorID: number) => void;
   deleteIntructorCurso: (id: number, instructorID: number) => void;
+  cursoUpdate: (id: number, curso: CursoCreate) =>void;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -31,7 +33,6 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (cursos.length === 0) {
-      
       fetch();
     }
   }, [cursos, setCursos]);
@@ -41,69 +42,79 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
       const response = await createCurso(curso);
       if (response.status == 201) {
         console.log(response.data);
-        fetch()
+        fetch();
         toast.success("Curso creado correctamente");
       }
-      // Aquí puedes agregar más lógica, p.ej. actualizar estado o mostrar mensaje
     } catch (error) {
       console.error("Error creando Curso:", error);
     }
   };
   const fetch = async () => {
-        setLoading(true);
-        try {
-          const { data } = await getCursos();
-          setCursos(data.data);
-        } catch (err) {
-          setError("Error cargando Cursos");
-          console.error(err);
-        } finally {
-          setLoading(false);
-        }
-      };
+    setLoading(true);
+    try {
+      const { data } = await getCursos();
+      setCursos(data.data);
+    } catch (err) {
+      setError("Error cargando Cursos");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const cursoDelete = async (id: number) => {
     try {
-      const response = await deleteCurso(id); // función que hace la llamada API para eliminar
+      const response = await deleteCurso(id); 
       if (response.status === 204 || response.status === 200) {
-        setCursos((prevCursos) =>
-          prevCursos.filter((e) => e.id !== id)
-        );
+        setCursos((prevCursos) => prevCursos.filter((e) => e.id !== id));
 
-        toast.success('Curso eliminado correctamente')
-
+        toast.success("Curso eliminado correctamente");
       } else {
         console.error("No se pudo eliminar el curso:", response);
-        toast.error('No se pudo eliminar el curso');
+        toast.error("No se pudo eliminar el curso");
       }
     } catch (error) {
-      console.error("Error al eliminar el curso:", error)
-      toast.error('Error al eliminar el curso');
+      console.error("Error al eliminar el curso:", error);
+      toast.error("Error al eliminar el curso");
+    }
+  };
+  const cursoUpdate = async (id: number, curso: CursoCreate) => {
+    try {
+      const response = await UpdateCurso(id, curso);
+      if (response.status === 200) {
+        console.log(response.data);
+        fetch();
+        toast.success("Curso actualizado correctamente");
+      }
+    } catch (error) {
+      console.error("Error actualizando Curso:", error);
+      toast.error("Error al actualizar el curso");
     }
   };
 
   const addInstructorCurso = async (id: number, instructorID: number) => {
     try {
-      const response = await AddInstructorCurso(id, instructorID); // API call
-      console.log(response.data)
+      const response = await AddInstructorCurso(id, instructorID); 
+      console.log(response.data);
       if (response.status === 200 || response.status === 201) {
-        fetch()
-        toast.success('Instructor agregado correctamente al curso')
+        fetch();
+        toast.success("Instructor agregado correctamente al curso");
       }
     } catch (error) {
       console.error("Error al actualizar el curso:", error);
     }
   };
+
   const deleteIntructorCurso = async (id: number, instructorID: number) => {
     try {
-      const response = await DeleteInstructorCurso(id, instructorID); // función que hace la llamada API para eliminar
+      const response = await DeleteInstructorCurso(id, instructorID);
       if (response.status == 204 || response.status == 200) {
-        fetch()
-        toast.success('Instructor eliminado correctamente al curso')
+        fetch();
+        toast.success("Instructor eliminado correctamente al curso");
       }
     } catch (error) {
       console.error("Error al eliminar el instructor:", error);
-      toast.error('Error al eliminar el instructor')
+      toast.error("Error al eliminar el instructor");
     }
   };
 
@@ -117,9 +128,11 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
         error,
         cursoDelete,
         deleteIntructorCurso,
+        cursoUpdate
       }}
     >
       {children}
     </CursosContext.Provider>
   );
 };
+

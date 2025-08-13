@@ -6,9 +6,11 @@ import type {
 import {
   createEstudiante,
   deleteEstudiantes,
+  editEstudiante,
   getEstudiantes,
   getEstudiantesCursos,
 } from "@/services/Estudiantes/EstudiantesServices";
+import { toast } from "sonner";
 
 interface EstudiantesContextType {
   estudiantes: EstudianteHasCurso[];
@@ -17,6 +19,7 @@ interface EstudiantesContextType {
   estudianteDelete: (id: number) => void;
   getEstudiante: (id: string) => Promise<EstudianteDetalles | null>; // 👈 async
   estudianteCreate: (estudiante: EstudianteHasCurso) => void;
+  updateEstudiante: (id: number, estudiante: EstudianteHasCurso)=> void;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -88,12 +91,38 @@ export const EstudiantesProvider = ({
           ...prevEstudiantes,
           response.data,
         ]);
+        toast.success('Estudiante registrado correctamente')
       }
-      // Aquí puedes agregar más lógica, p.ej. actualizar estado o mostrar mensaje
     } catch (error) {
       console.error("Error creando estudiante:", error);
+      toast.success('Error al crear estudiante')
     }
   };
+  const updateEstudiante = async (id: number, estudiante: EstudianteHasCurso) => {
+  try {
+    const response = await editEstudiante(id, estudiante); // aquí usarías PATCH o PUT según tu API
+
+    if (response.status === 200) {
+      console.log("Estudiante actualizado:", response);
+
+      // Actualizar el estado local
+      setEstudiantes((prevEstudiantes) =>
+        prevEstudiantes.map((e) =>
+          e.id === id ? response.data : e
+        )
+      );
+
+      toast.success("Estudiante actualizado correctamente");
+    } else {
+      console.error("No se pudo actualizar el estudiante:", response);
+      toast.error("No se pudo actualizar el estudiante");
+    }
+  } catch (error) {
+    console.error("Error actualizando estudiante:", error);
+    toast.error("Error al actualizar estudiante");
+  }
+};
+
 
   return (
     <EstudiantesContext.Provider
@@ -104,6 +133,7 @@ export const EstudiantesProvider = ({
         estudianteDelete,
         getEstudiante,
         estudianteCreate,
+        updateEstudiante
       }}
     >
       {children}

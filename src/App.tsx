@@ -13,6 +13,9 @@ import { EstudiantesProvider } from "./contexts/Estudiantes/EstudiantesContext";
 import { DetallesEstudiantes } from "./pages/dashboard/Estudiantes/DetallesEstudiantes";
 import { InstructoresProvider } from "./contexts/Instructores/InstructoresContext";
 import { CursosProvider } from "./contexts/Cursos/CursosContext";
+import { DetallesCursos } from "./pages/dashboard/Cursos/CursosDetalles";
+import { DetallesSedes } from "./pages/dashboard/Sedes/components/DetallesSedes";
+import { Pagos } from "./pages/dashboard/Pagos/Pagos";
 
 function App() {
   return (
@@ -31,6 +34,7 @@ function App() {
                       element={<Catalogos></Catalogos>}
                     />
                     <Route path="/cursos" element={<Cursos></Cursos>} />
+                    <Route path="/cursos/:id" element={<DetallesCursos />} />
                     <Route path="/generos" element={<Generos></Generos>} />
                     <Route
                       path="/estudiantes"
@@ -45,6 +49,8 @@ function App() {
                       element={<Instructores></Instructores>}
                     />
                     <Route path="/sedes" element={<Sedes></Sedes>} />
+                    <Route path="/sedes/:id" element={<DetallesSedes />} />
+                    <Route path="/pagos" element={<Pagos></Pagos>}/>
                   </Route>
                 </Routes>
               </CursosProvider>

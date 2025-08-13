@@ -2,15 +2,17 @@ import * as React from "react"
 import {
   IconCamera,
 
-  IconDatabase,
+  IconCash,
+
+
 
   IconFileAi,
   IconFileDescription,
-  IconFileWord,
+
 
   IconInnerShadowTop,
 
-  IconReport,
+
 } from "@tabler/icons-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -25,6 +27,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import type { Ruta } from "@/interfaces/Ruta"
+import { NavSecondary } from "./nav-secondary"
 
 const data = {
   user: {
@@ -81,40 +84,14 @@ const data = {
       ],
     },
   ],
-  /* navSecondary: [
+  navSecondary: [
     {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
+      title: "Registrar Pago",
+      url: "/pagos",
+      icon: IconCash,
     },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
-  ], */
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
-    },
-  ],
+
+  ]
 }
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
@@ -142,7 +119,7 @@ export function AppSidebar({ rutas, ...props }: AppSidebarProps) {
       <SidebarContent>
         <NavMain items={rutas} />
       {/*   <NavDocuments items={data.documents} /> */}
-        {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

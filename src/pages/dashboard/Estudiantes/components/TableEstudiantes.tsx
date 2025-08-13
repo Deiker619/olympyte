@@ -81,7 +81,7 @@ export const TableEstudiantes = () => {
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       
-                        <AddEstudiante estudiante={estudiante} icon={<IconPencilCheck/>} mode="editing" triggerMessage="Modificar Estudiante"></AddEstudiante>
+                        <AddEstudiante estudiante={estudiante} id={estudiante.id} icon={<IconPencilCheck/>} mode="editing" triggerMessage="Modificar Estudiante"></AddEstudiante>
                       
                     </DropdownMenuItem>
                     <Link to={`/estudiantes/${estudiante.id}`}>
