@@ -1,7 +1,8 @@
+import type { LucideIcon } from "lucide-react";
+
 export interface Ruta {
 
   title: string;
   url: string;
-  icon: React.ComponentType<{ className?: string }>; // Tipo para componentes de icono
-  status: boolean
+  icon: LucideIcon; // Tipo para componentes de icono
 }

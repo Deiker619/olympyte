@@ -33,9 +33,7 @@ import { AddRooster } from "./AddRooster";
 
 
 export const TableCursos = () => {
-  const { cursos, loading, error, cursoDelete, deleteIntructorCurso } =
-    useCursos();
-  console.log(cursos);
+  const { cursos, loading, error, cursoDelete, deleteIntructorCurso } = useCursos();
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
   return (
