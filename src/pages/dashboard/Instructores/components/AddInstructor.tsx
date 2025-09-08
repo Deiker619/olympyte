@@ -69,7 +69,7 @@ export function AddInstructor({
     <AlertDialog>
       <AlertDialogTrigger asChild>
         {useMode === "create" ? (
-          <Button>
+          <Button className="text-black">
             <span>{icon}</span> {triggerMessage}
           </Button>
         ) : (

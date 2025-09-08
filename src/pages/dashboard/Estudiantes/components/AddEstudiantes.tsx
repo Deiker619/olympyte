@@ -59,7 +59,7 @@ export function AddEstudiante({
       <AlertDialogTrigger asChild>
         {useMode === "create"
           ?
-          <Button>
+          <Button className="text-black">
             <span>{icon}</span> {triggerMessage}
           </Button>
           :
