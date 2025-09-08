@@ -1,6 +1,6 @@
 export const randomColor = (): string => {
   // Genera valores oscuros para r, g, b
-  const r = Math.floor(Math.random() * 5) + 120; // 0 - 127
+  const r = Math.floor(Math.random() * 106) + 120; // 0 - 127
   const g = Math.floor(Math.random() * 106) + 120; // 0 - 127
   const b = Math.floor(Math.random() * 106) + 120; // 0 - 127
 

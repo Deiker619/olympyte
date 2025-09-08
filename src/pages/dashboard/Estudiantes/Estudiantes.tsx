@@ -14,7 +14,7 @@ export const Estudiantes = () => {
         <div className=" col-span-3">
           <PageDescription
             title="Estudiantes"
-            description="Gestiona todos los cursos de la academia"
+            description="Gestiona todos los estudiantes de la academia"
           />
         </div>
 
