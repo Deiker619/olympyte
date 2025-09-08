@@ -28,7 +28,7 @@ export const Cursos = () => {
           />
         </div>
       </div>
-      <div className="grid gap-3 grid-cols-5 place-items-center-center place-content-center">
+      <div className="grid gap-3 lg:grid-cols-5 md:grid-cols-2 place-items-center-center md:place-content-center">
         <div className="col-span-2">
           <Input
             placeholder="Buscar cursos..."

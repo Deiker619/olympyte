@@ -6,8 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CardInstructores } from "./components/CardInstructores";
 import { useInstructores } from "@/hooks/Instructores/useInstructores";
+import { useFilters } from "@/hooks/useFilter";
 export const Instructores = () => {
   const { instructores } = useInstructores();
+  const { filteredData, search, setSearch } = useFilters(instructores);
   return (
     <div className="px-4 lg:px-6 space-y-6">
       <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-2 grid-cols-1">
@@ -28,7 +30,7 @@ export const Instructores = () => {
       </div>
       <div className="grid gap-3 lg:grid-cols-5 md:grid-cols-2 place-items-center-center md:place-content-center">
         <div className="col-span-2">
-          <Input placeholder="Buscar instructores..." />
+          <Input placeholder="Buscar instructores..." value={search} onChange={(e) => setSearch(e.target.value)} />
         </div>
         <div className="col-span-1 flex gap-3">
           <Button
@@ -48,7 +50,7 @@ export const Instructores = () => {
       </div>
 
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
-        <CardInstructores instructores={instructores} />
+        <CardInstructores instructores={filteredData} />
       </div>
     </div>
   );

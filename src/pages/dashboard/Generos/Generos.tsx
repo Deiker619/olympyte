@@ -4,9 +4,11 @@ import { IconPlus } from "@tabler/icons-react";
 import { CardGeneros } from "./components/CardGeneros";
 import { useGeneros } from "@/hooks/Generos/useGeneros";
 import { Input } from "@/components/ui/input";
+import { useFilters } from "@/hooks/useFilter";
 
 export const Generos = () => {
   const { generos } = useGeneros();
+  const { filteredData, search, setSearch } = useFilters(generos);
   return (
     <div className="px-4 lg:px-6 space-y-6">
       <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-2 grid-cols-1">
@@ -29,6 +31,8 @@ export const Generos = () => {
         <div className="col-span-2">
           <Input
             placeholder="Buscar generos..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
    
           />
         </div>
@@ -39,7 +43,7 @@ export const Generos = () => {
       <div className=""></div>
       {/* <TableGeneros></TableGeneros> */}
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
-        <CardGeneros generos={generos}></CardGeneros>
+        <CardGeneros generos={filteredData}></CardGeneros>
       </div>
     </div>
   );
