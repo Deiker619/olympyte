@@ -1,54 +1,70 @@
-import { IconCirclePlusFilled, IconMail } from "@tabler/icons-react";
+import { type LucideIcon } from "lucide-react"
 
-import { Button } from "@/components/ui/button";
+import {
+  Collapsible,
+} from "@/components/ui/collapsible"
 import {
   SidebarGroup,
-  SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import { Link } from "react-router-dom";
-import type { Ruta } from "@/interfaces/Ruta";
-import { AddEstudiante } from "@/pages/dashboard/Estudiantes/components/AddEstudiantes";
+
+} from "@/components/ui/sidebar"
+import { NavLink } from "react-router-dom"
+
 
 export function NavMain({
   items,
 }: {
-  items: Ruta[];
+  items: {
+    title: string
+    url: string
+    icon?: LucideIcon
+    isActive?: boolean
+    items?: {
+      title: string
+      url: string
+    }[]
+  }[]
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupContent className="flex flex-col gap-2">
-        <SidebarMenu>
-          <SidebarMenuItem className="flex items-center gap-2">
-            
-      
-              <AddEstudiante icon={<IconCirclePlusFilled />} mode="create" triggerMessage="Agregar nuevo Estudiante" />
-           
-            <Button
-              size="icon"
-              className="size-8 group-data-[collapsible=icon]:opacity-0"
-              variant="outline"
-            >
-              <IconMail />
-              <span className="sr-only">Inbox</span>
-            </Button>
-          </SidebarMenuItem>
-        </SidebarMenu>
-        <SidebarMenu>
-          {items.map((item, index) => (
-            <Link to={item.url} key={index}>
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton tooltip={item.title}>
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </Link>
-          ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
+      <SidebarMenu>
+        {items.map((item) => (
+          <Collapsible
+            key={item.title}
+
+          >
+
+            <SidebarMenuItem>
+
+              <NavLink to={item.url} >
+                {({ isActive }) => (
+                  <SidebarMenuButton asChild
+                    className={` active:bg-[#26262ec8] hover:transition-colors hover:duration-300 ease-in-out py-6 px-5 text-md border-r-primary flex gap-3 items-center
+                         ${isActive ? "bg-primary/40 text-white hover:bg-primary/40 border-r-3 border-r-primary" : "text-[#fafafacc] hover:bg-[#26262ec8]"}`}>
+                    <div className="flex gap-3 items-center">
+                      {item.icon && (
+                        <item.icon
+                          style={{ width: "18px", height: "18px" }}
+                          className={isActive ? "text-primary" : "group-hover/menu-item:text-primary"}
+                        />
+                      )}
+                      <span className={isActive ? "text-primary font-semibold" : "text-white"}>
+                        {item.title}
+                      </span>
+                    </div>
+                  </SidebarMenuButton>
+                )}
+              </NavLink>
+
+
+
+
+            </SidebarMenuItem>
+          </Collapsible>
+        ))}
+      </SidebarMenu>
     </SidebarGroup>
-  );
+  )
 }

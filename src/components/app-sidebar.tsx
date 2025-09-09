@@ -1,129 +1,90 @@
+"use client"
+
 import * as React from "react"
 import {
-  IconCamera,
 
-  IconCash,
+  Home,
+  LibraryBig,
+  LocateIcon,
+
+  Music,
+
+  UserCheck,
+  Users,
+} from "lucide-react"
 
 
-
-  IconFileAi,
-  IconFileDescription,
-
-
-  IconInnerShadowTop,
-
-
-} from "@tabler/icons-react"
-
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
+import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarRail,
 } from "@/components/ui/sidebar"
-import type { Ruta } from "@/interfaces/Ruta"
-import { NavSecondary } from "./nav-secondary"
+import { NavMain } from "./nav-main"
+import { rutas } from "@/routes/rutas"
 
+// This is sample data.
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   
-  navClouds: [
+  teams: [
     {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
+      name: "Olimpo",
+      logo: Music,
+      plan: "Venezuela",
+    }
+  ],
+  projects: [
+    {
+      name: "Dashboard",
       url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      icon: Home,
     },
     {
-      title: "Proposal",
-      icon: IconFileDescription,
+      name: "Cursos",
       url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      icon: LibraryBig,
     },
     {
-      title: "Prompts",
-      icon: IconFileAi,
+      name: "Géneros",
       url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      icon: Music,
+    },
+    {
+      name: "Estudiantes",
+      url: "#",
+      icon: Users,
+    },
+    {
+      name: "Instructores",
+      url: "#",
+      icon: UserCheck,
+    },
+    {
+      name: "Sedes",
+      url: "#",
+      icon: LocateIcon,
     },
   ],
-  navSecondary: [
-    {
-      title: "Registrar Pago",
-      url: "/pagos",
-      icon: IconCash,
-    },
-
-  ]
 }
 
-interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
-  rutas: Ruta[]; 
-}
-
-export function AppSidebar({ rutas, ...props }: AppSidebarProps) {
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
-              <a href="/">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Olimpo</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={rutas} />
-      {/*   <NavDocuments items={data.documents} /> */}
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        {/* <NavProjects projects={data.projects} /> */}
+        <div className="mt-4">
+          <NavMain items={rutas} />
+        </div>
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        
       </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   )
 }
