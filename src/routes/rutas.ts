@@ -1,4 +1,4 @@
-import { BookOpen, HomeIcon, MapPin, Music, UserCheck, Users } from "lucide-react";
+import { BookOpen, CreditCard, HomeIcon, MapPin, Music, UserCheck, Users } from "lucide-react";
 
 export const rutas = [
   {
@@ -30,6 +30,11 @@ export const rutas = [
     title: "Sedes",
     url: "/sedes",
     icon: MapPin,
+  },
+  {
+    title: "Pagos",
+    url: "/pagos",
+    icon: CreditCard,
   },
 
 ]

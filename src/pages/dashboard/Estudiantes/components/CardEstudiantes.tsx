@@ -1,22 +1,28 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { EstudianteHasCurso } from "@/interfaces/Estudiante";
+import {  IconEye, IconPencilCheck, IconTrash } from "@tabler/icons-react";
 
-import { BookOpen, Edit, Eye, Mail, MoreVertical, Trash2 } from "lucide-react";
+import { BookOpen,  Mail, MoreVertical } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import { AddEstudiante } from "./AddEstudiantes";
+import { Link } from "react-router-dom";
+import { useEstudiantes } from "@/hooks/Estudiantes/Estudiantes";
 
 export const CardEstudiantes = ({
   estudiantes,
 }: {
   estudiantes: EstudianteHasCurso[];
 }) => {
+  const {  estudianteDelete } = useEstudiantes();
   return (
     <>
       <AnimatePresence>
@@ -42,26 +48,33 @@ export const CardEstudiantes = ({
                     <Badge className="bg-primary text-black">Activo</Badge>
                   </div>
                   <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm">
-                        <MoreVertical className="w-4 h-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
+                  <DropdownMenuTrigger>
+                    <MoreVertical />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>Opciones</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={() => estudianteDelete(estudiante.id)}
+                    >
+                      <span className="flex gap-2 items-center">
+                        <IconTrash /> Eliminar
+                      </span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      
+                        <AddEstudiante estudiante={estudiante} id={estudiante.id} icon={<IconPencilCheck/>} mode="editing" triggerMessage="Modificar Estudiante"></AddEstudiante>
+                      
+                    </DropdownMenuItem>
+                    <Link to={`/estudiantes/${estudiante.id}`}>
                       <DropdownMenuItem>
-                        <Eye className="w-4 h-4 mr-2" />
-                        Ver detalles
+                        <span className="flex gap-2 items-center">
+                          <IconEye /> Ver detalles del estudiante
+                        </span>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Edit className="w-4 h-4 mr-2" />
-                        Editar
-                      </DropdownMenuItem>
-                      <DropdownMenuItem className="text-destructive">
-                        <Trash2 className="w-4 h-4 mr-2" />
-                        Eliminar
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                    </Link>
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 </div>
 
                 <div className="space-y-2 text-sm text-muted-foreground">

@@ -43,9 +43,9 @@ export const Home = () => {
           />
         </div>
       </div>
-      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-3 bg-white">
+      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-3 ">
         {[4, 1, 7, 4].map((value) => (
-          <div className="border rounded-2xl p-4 grid grid-cols-3 place-items-center ">
+          <div className="border rounded-2xl p-4 grid grid-cols-3 place-items-center bg-white">
             <div className="flex flex-col w-full col-span-2 gap-3 font-thin">
               <p className="text-md text-gray-500 font-semibold">
                 Ingresos totales
@@ -64,7 +64,7 @@ export const Home = () => {
               </div>
             </div>
             <div className="  ">
-              <div className="p-2  rounded-lg justify-center items-center flex h-12 w-12 bg-primary">
+              <div className="p-2 mb-6 rounded-lg justify-center items-center flex h-10 w-10 bg-primary">
                 <Settings />
               </div>
             </div>

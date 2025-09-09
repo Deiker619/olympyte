@@ -49,11 +49,11 @@ export const AddPagos = () => {
     reset();
   };
   return (
-    <div className="mx-auto container">
+    <div className="p-4 bg-white rounded-2xl border">
       <p className="mb-10 text-center text-2xl">Registrar Pago </p>
       <form onSubmit={handleSubmit(handleClick)}>
         <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="grid gap-3 col-span-2 md:col-span-1">
+          <div className="grid gap-3 col-span-2 md:col-span-2">
             <Label htmlFor="sede">Estudiantes</Label>
             <select
               id="sede"
@@ -69,7 +69,7 @@ export const AddPagos = () => {
             </select>
           </div>
 
-          <div className="grid gap-3 col-span-2 md:col-span-1 ">
+          <div className="grid gap-3 col-span-2 md:col-span-2 ">
             <Label htmlFor="sede">Curso</Label>
             <select
               id="curso"
@@ -117,7 +117,7 @@ export const AddPagos = () => {
           </div>
 
           <div className="grid gap-3 col-span-2">
-            <Label htmlFor="telefono">Monto</Label>
+            <Label htmlFor="telefono">Monto ($)</Label>
             <Input
               id="telefono"
               {...register("monto", {
@@ -174,7 +174,7 @@ export const AddPagos = () => {
             )}
           </div>
           <Button
-            className="md:col-span-1 col-span-2"
+            className="md:col-span-2 col-span-2"
             type="submit"
             disabled={!isValid}
           >

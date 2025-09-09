@@ -1,28 +1,32 @@
-import { Button } from "@/components/ui/button";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
   Clock,
-  Edit,
-  Eye,
+
   MapPin,
   MoreVertical,
   Phone,
-  Trash2,
-  UserPlus,
+
 } from "lucide-react";
 import type { Sede } from "@/interfaces/Sede";
 import { useSedes } from "@/hooks/Sedes/useSedes";
 import { AnimatePresence, motion } from "motion/react";
+import { Link } from "react-router-dom";
+import { IconEye, IconPencilCheck, IconTrash, IconUserPlus } from "@tabler/icons-react";
+import { AddSedes } from "./AddSedes";
+import { AddEstudianteSede } from "./AddEstudianteSede";
 
 export const CardSedes = ({ sedes }: { sedes: Sede[] }) => {
-  const { loading, error } = useSedes();
+    const { loading, error, sedeDelete } = useSedes();
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
   return (
@@ -47,30 +51,45 @@ export const CardSedes = ({ sedes }: { sedes: Sede[] }) => {
                     <Badge className="bg-primary text-black">Activo</Badge>
                   </div>
                   <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm">
-                        <MoreVertical className="w-4 h-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
+                  <DropdownMenuTrigger>
+                    <MoreVertical />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>Opciones</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => sedeDelete(sede.id)}>
+                      {" "}
+                      <IconTrash></IconTrash> Eliminar Sede {sede.id}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <AddSedes
+                        sede={sede}
+                        id={sede.id}
+                        icon={<IconPencilCheck />}
+                        triggerMessage="Modificar Sede"
+                        mode="editing"
+                      />
+                    </DropdownMenuItem>
+                    <Link to={`/sedes/${sede.id}`}>
                       <DropdownMenuItem>
-                        <Eye className="w-4 h-4 mr-2" />
-                        Ver inscritos
+                        <span className="flex gap-2 items-center">
+                          <IconEye /> Ver inscritos en la sede
+                        </span>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <UserPlus className="w-4 h-4 mr-2" />
-                        Agregar estudiante
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Edit className="w-4 h-4 mr-2" />
-                        Editar
-                      </DropdownMenuItem>
-                      <DropdownMenuItem className="text-destructive">
-                        <Trash2 className="w-4 h-4 mr-2" />
-                        Eliminar
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                    </Link>
+                      <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <AddEstudianteSede
+                        sede={{nombre: sede.nombre, id: sede.id}}
+                       
+                        icon={<IconUserPlus />}
+                        triggerMessage="Agregar Estudiante a Sede"
+                        mode="create"
+                      />
+                    </DropdownMenuItem>
+                    
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 </div>
 
                 {/* Address and Contact */}

@@ -12,7 +12,7 @@ import { useInstructores } from "@/hooks/Instructores/useInstructores";
 import type { Instructor } from "@/interfaces/Intructor";
 
 import { IconPencilCheck, IconTrash } from "@tabler/icons-react";
-import { Badge, Mail, MoreVertical, Phone, Star, UserCheck } from "lucide-react";
+import { Badge, Mail, MoreVertical, Phone,  UserCheck } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { AddInstructor } from "./AddInstructor";
 export const CardInstructores = ({ instructores }: { instructores: Instructor[] }) => {
@@ -120,16 +120,7 @@ export const CardInstructores = ({ instructores }: { instructores: Instructor[] 
                   </div>
                 </div>
 
-                {/* Rating and Status */}
-                <div className="flex items-center justify-between pt-4 border-t border-border mt-2">
-                  <div className="flex items-center space-x-1">
-                    <Star className="w-4 h-4 text-primary fill-current" />
-                    <span className="text-sm font-medium">rating</span>
-                  </div>
-                  <Badge>
-                    status
-                  </Badge>
-                </div>
+                
               </CardContent>
             </Card>
 
