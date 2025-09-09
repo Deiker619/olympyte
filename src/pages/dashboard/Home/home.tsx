@@ -6,8 +6,16 @@ import { useEffect, useState } from "react";
 import { CreateCurso } from "../Cursos/components/CreateCurso";
 import { IconPlus } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
-import { Calendar,Settings } from "lucide-react";
+import {
+  BookOpen,
+  Calendar,
+  DollarSign,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 import { PopularCourses } from "@/components/popularCursos";
+import { CardKpis } from "./components/CardKpis";
+import { AnimatePresence, motion } from "motion/react";
 
 export const Home = () => {
   const fechData = async () => {
@@ -43,41 +51,53 @@ export const Home = () => {
           />
         </div>
       </div>
-      <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-3 ">
-        {[4, 1, 7, 4].map((value) => (
-          <div className="border rounded-2xl p-4 grid grid-cols-3 place-items-center bg-white">
-            <div className="flex flex-col w-full col-span-2 gap-3 font-thin">
-              <p className="text-md text-gray-500 font-semibold">
-                Ingresos totales
-              </p>
-              <div className="flex flex-col">
-                <p className="text-2xl font-bold inline-flex gap-2 items-end  text-black">
-                  $24.5425
-                  <span
-                    className={`text-sm ${
-                      value % 2 == 0 ? `text-green-600` : `text-red-600`
-                    } mb-1`}
-                  >
-                    24.2%
-                  </span>
-                </p>
-              </div>
-            </div>
-            <div className="  ">
-              <div className="p-2 mb-6 rounded-lg justify-center items-center flex h-10 w-10 bg-primary">
-                <Settings />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 120, // qué tan fuerte es el resorte
+            damping: 15, // qué tanto rebota (menor valor = más rebote)
+            duration: 0.8, // opcional, puedes dejar que lo calcule el spring
+          }}
+          className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-3 "
+        >
+          <CardKpis
+            titulo="Ingresos Totales"
+            icono={<DollarSign />}
+            monto={{ valor: "24.480", isMoney: true }}
+            porcentaje={{ valor: 12.5, up: true }}
+          />
+
+          <CardKpis
+            titulo="Estudiantes Activos"
+            icono={<Users />}
+            monto={{ valor: "142", isMoney: false }}
+            porcentaje={{ valor: 12.5, up: true }}
+          />
+
+          <CardKpis
+            titulo="Tasa de Asistencia"
+            icono={<TrendingUp />}
+            monto={{ valor: "89%", isMoney: false }}
+            porcentaje={{ valor: 3.1, up: true }}
+          />
+
+          <CardKpis
+            titulo="Cursos Activos"
+            icono={<BookOpen />}
+            monto={{ valor: "18", isMoney: false }}
+            porcentaje={{ valor: 2, up: false }}
+          />
+        </motion.div>
+      </AnimatePresence>
       <div className=" grid md:grid-cols-2 grid-cols-1 h-auto md:max-h-100 overflow-hidden gap-4">
         <div className="md:col-span-1 h-100 col-span-3  rounded-2xl">
           <ChartAreaInteractive />
         </div>
         <div className="md:col-span-1 col-span-2 h-100 overflow-auto flex p-4 flex-col  rounded-2xl bg-card border">
           <div className="flex flex-col w-full ">
-           
             <div className="w-full">
               <PopularCourses />
             </div>

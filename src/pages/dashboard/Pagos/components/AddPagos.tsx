@@ -49,8 +49,8 @@ export const AddPagos = () => {
     reset();
   };
   return (
-    <div className="p-4 bg-white rounded-2xl border">
-      <p className="mb-10 text-center text-2xl">Registrar Pago </p>
+    <div className="p-6 bg-white rounded-2xl border">
+      <p className="mb-3 text-center text-2xl">Registrar Pago </p>
       <form onSubmit={handleSubmit(handleClick)}>
         <div className="grid grid-cols-2 gap-3 mb-4">
           <div className="grid gap-3 col-span-2 md:col-span-2">

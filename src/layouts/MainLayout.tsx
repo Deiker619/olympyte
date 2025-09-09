@@ -1,13 +1,14 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { NavUser } from "@/components/nav-user";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Settings } from "lucide-react";
-import { Outlet } from "react-router-dom";
+import { ArrowLeft, Settings } from "lucide-react";
+import { Link, Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
 
 export const MainLayout = () => {
@@ -15,7 +16,7 @@ export const MainLayout = () => {
     name: "shadcn",
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
-  }
+  };
   return (
     <>
       <SidebarProvider>
@@ -28,15 +29,21 @@ export const MainLayout = () => {
                 orientation="vertical"
                 className="mr-2 data-[orientation=vertical]:h-4"
               />
+              {/* Barra superior */}
               <div className="flex w-full justify-end items-end">
                 <div className=" h-full w-full flex justify-end items-end">
                   <div className="flex items-center w-auto gap-2 md:mr-6 mr-2">
-                
+                    <Link to="/login">
+                      <Button type="submit" variant={'ghost'} className="w-full text-black">
+                        <ArrowLeft/> Ir al login
+                      </Button>
+                    </Link>
                     <div className="p-2  rounded-lg flex justify-center items-center  hover:bg-primary">
-                      <Settings size={20}/>
+                      <Settings size={20} />
                     </div>
-                    <div className=""><NavUser user={user} /></div>
-
+                    <div className="">
+                      <NavUser user={user} />
+                    </div>
                   </div>
                 </div>
               </div>

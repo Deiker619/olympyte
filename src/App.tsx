@@ -16,6 +16,7 @@ import { CursosProvider } from "./contexts/Cursos/CursosContext";
 import { DetallesCursos } from "./pages/dashboard/Cursos/CursosDetalles";
 import { DetallesSedes } from "./pages/dashboard/Sedes/components/DetallesSedes";
 import { Pagos } from "./pages/dashboard/Pagos/Pagos";
+import { Login } from "./pages/auth/Login";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <InstructoresProvider>
               <CursosProvider>
                 <Routes>
+                  <Route path="/login" element={<Login/>}/>
                   <Route element={<MainLayout />}>
                     <Route path="/" element={<Home></Home>} />
                     <Route
@@ -50,7 +52,7 @@ function App() {
                     />
                     <Route path="/sedes" element={<Sedes></Sedes>} />
                     <Route path="/sedes/:id" element={<DetallesSedes />} />
-                    <Route path="/pagos" element={<Pagos></Pagos>}/>
+                    <Route path="/pagos" element={<Pagos></Pagos>} />
                   </Route>
                 </Routes>
               </CursosProvider>
