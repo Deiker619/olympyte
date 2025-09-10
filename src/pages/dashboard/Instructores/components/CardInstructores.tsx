@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useInstructores } from "@/hooks/Instructores/useInstructores";
 import type { Instructor } from "@/interfaces/Intructor";
-
+import { Badge } from "@/components/ui/badge";
 import { IconPencilCheck, IconTrash } from "@tabler/icons-react";
-import { Badge, Mail, MoreVertical, Phone,  UserCheck } from "lucide-react";
+import {  Mail, MoreVertical, Phone,  UserCheck } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { AddInstructor } from "./AddInstructor";
 export const CardInstructores = ({ instructores }: { instructores: Instructor[] }) => {
@@ -98,7 +98,9 @@ export const CardInstructores = ({ instructores }: { instructores: Instructor[] 
                   {specialty}
                 </Badge>
               ))} */}
-                    <Badge>Prueba</Badge>
+                    <Badge>Bachata sensual</Badge>
+                    <Badge>Merengue</Badge>
+                    <Badge>Salsa</Badge>
                   </div>
                 </div>
 
@@ -107,14 +109,14 @@ export const CardInstructores = ({ instructores }: { instructores: Instructor[] 
                   <div className="text-center">
                     <p className="text-lg font-bold text-primary">
                       {/* {instructor.activeCourses} */}
-                      curso activo
+                      3
                     </p>
                     <p className="text-xs text-muted-foreground">Cursos Activos</p>
                   </div>
                   <div className="text-center">
                     <p className="text-lg font-bold text-primary">
                       {/* {instructor.totalStudents} */}
-                      instructor
+                      40
                     </p>
                     <p className="text-xs text-muted-foreground">Estudiantes</p>
                   </div>

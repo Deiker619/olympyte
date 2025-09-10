@@ -91,7 +91,7 @@ export const CardEstudiantes = ({
                 <div className="pt-4 border-t border-border mt-4">
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-muted-foreground">Último pago:</span>
-                    <span className="font-medium">{"lastpayment"}</span>
+                    <span className="font-medium">{"10/9/2025"}</span>
                   </div>
                 </div>
               </CardContent>

@@ -2,7 +2,7 @@ import { BookOpen, CreditCard, HomeIcon, MapPin, Music, UserCheck, Users } from 
 
 export const rutas = [
   {
-    title: "Dashboard",
+    title: "Inicio",
     url: "/",
     icon: HomeIcon,
   },

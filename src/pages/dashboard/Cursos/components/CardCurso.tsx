@@ -28,7 +28,8 @@ import {
 import { AddInstructorCurso } from "./AddInstructorCurso";
 import { AddRooster } from "./AddRooster";
 import type { Curso } from "@/interfaces/Curso";
-import { AnimatePresence, motion} from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+
 
 export const CardCurso = ({ cursos }: { cursos: Curso[] }) => {
   const { loading, error, cursoDelete } = useCursos();
@@ -139,12 +140,18 @@ export const CardCurso = ({ cursos }: { cursos: Curso[] }) => {
               </div>
             </div>
             <Separator></Separator>
-            <div className="flex items-center px-2">
+            <div className="flex items-center px-2 ">
               <div className="flex-1 flex items-center gap-3">
                 <Users size={16} className="text-primary"></Users>
                 <div className="font-semibold">24/30</div>
               </div>
-              <div className="">opciones</div>
+
+              <div className="w-20 overflow-hidden  bg-muted rounded-full h-2">
+                <div
+                  className="bg-primary max-w-100 h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${(curso.id / 30) * 100}%` }}
+                />
+              </div>
             </div>
           </motion.div>
         ))}

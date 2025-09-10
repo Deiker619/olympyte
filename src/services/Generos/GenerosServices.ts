@@ -17,3 +17,7 @@ export const editGenero = async (id: number, genero: GeneroCreate) => {
   const response = await api.put(`generos/${id}`, genero);
   return response;
 };
+export const GetCursoPorGenero = async (id: number | string)=>{
+   const response = await api.get(`cursos?generoId=${id}`); // ruta relativa al baseURL
+  return response;
+} 

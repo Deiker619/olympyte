@@ -54,9 +54,10 @@ export interface CursoEstududianteDetalles{
 
 export interface PagoReciente {
   pago_id: number;
-  curso_id: number;
+  curso: Pick<Curso, 'id'|'nombre'>;
   mes: number;
   anio: number;
+  estudiante: Pick<Estudiante, 'id'| 'nombre'>
   monto: number;
   fecha: string; // formato ISO
   metodo_pago: "EFECTIVO" | "ZELLE" | "TRANSFERENCIA" | string;

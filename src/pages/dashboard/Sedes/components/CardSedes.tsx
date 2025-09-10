@@ -135,7 +135,10 @@ export const CardSedes = ({ sedes }: { sedes: Sede[] }) => {
                     <span className="font-medium"></span>
                   </div>
                   <div className="w-full bg-muted rounded-full h-2">
-                    <div className="bg-gradient-primary h-2 rounded-full transition-all duration-300" />
+                    <div className="bg-primary h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${(sede.id / 30) * 100}%` }}
+                    
+                    />
                   </div>
                 </div>
 
