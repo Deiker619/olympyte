@@ -20,8 +20,8 @@ interface CursosContextType {
   cursoDelete: (id: number) => void;
   addInstructorCurso: (id: number, instructorID: number) => void;
   deleteIntructorCurso: (id: number, instructorID: number) => void;
-  cursoUpdate: (id: number, curso: CursoCreate) =>void;
-  addEstudianteCurso: (data:RoosterCreate) =>void
+  cursoUpdate: (id: number, curso: CursoCreate) => void;
+  addEstudianteCurso: (data: RoosterCreate) => void
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -68,7 +68,7 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
 
   const cursoDelete = async (id: number) => {
     try {
-      const response = await deleteCurso(id); 
+      const response = await deleteCurso(id);
       if (response.status === 204 || response.status === 200) {
         setCursos((prevCursos) => prevCursos.filter((e) => e.id !== id));
         fetchEstudiante();
@@ -96,9 +96,11 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+
+
   const addInstructorCurso = async (id: number, instructorID: number) => {
     try {
-      const response = await AddInstructorCurso(id, instructorID); 
+      const response = await AddInstructorCurso(id, instructorID);
       console.log(response.data);
       if (response.status === 200 || response.status === 201) {
         fetch();
@@ -111,7 +113,7 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
 
   const addEstudianteCurso = async (data: RoosterCreate) => {
     try {
-      const response = await AddEstudianteCurso(data); 
+      const response = await AddEstudianteCurso(data);
       console.log(response.data);
       if (response.status === 200 || response.status === 201) {
         fetchEstudiante()
@@ -123,12 +125,14 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+
+
   const deleteIntructorCurso = async (id: number, instructorID: number) => {
     try {
       const response = await DeleteInstructorCurso(id, instructorID);
       if (response.status == 204 || response.status == 200) {
         fetch();
-        
+
         toast.success("Instructor eliminado correctamente al curso");
       }
     } catch (error) {
@@ -148,7 +152,8 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
         cursoDelete,
         deleteIntructorCurso,
         cursoUpdate,
-        addEstudianteCurso
+        addEstudianteCurso,
+        
       }}
     >
       {children}

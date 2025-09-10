@@ -34,3 +34,4 @@ export const GetDetallesCurso = async (id:number|string) => {
   const response = await api.get(`cursos/${id}`); // ruta relativa al baseURL
   return response;
 };
+

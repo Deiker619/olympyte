@@ -4,6 +4,7 @@ import {
   getGeneros,
   deleteGenero,
   editGenero,
+  GetCursoPorGenero,
 } from "@/services/Generos/GenerosServices";
 import type { GeneroCreate, GeneroRequest } from "@/interfaces/Genero";
 import { toast } from "sonner";
@@ -14,7 +15,8 @@ interface GenerosContextType {
   error: string | null;
   addNewGenero: (genero: GeneroCreate) => void;
   generoDelete: (id: number) => void;
-  generoUpdate: (id: number, genero: GeneroCreate) => void;
+  generoUpdate: (id: number, genero: GeneroCreate) => void,
+  getCursoPorGenero: (id:number | string)=>void
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -99,6 +101,18 @@ export const GenerosProvider = ({
       toast.error("Error al actualizar el género");
     }
   };
+
+    const getCursoPorGenero = async (id: string | number) => {
+      try {
+  
+        const response = await GetCursoPorGenero(id)
+        console.log(response.data);
+      } catch (error) {
+        console.log(error)
+        toast.error("Error al obtener cursos de los generos");
+      }
+  
+    }
   return (
     <GenerosContext.Provider
       value={{
@@ -108,6 +122,7 @@ export const GenerosProvider = ({
         addNewGenero,
         generoDelete,
         generoUpdate,
+        getCursoPorGenero
       }}
     >
       {children}

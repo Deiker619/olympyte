@@ -16,8 +16,12 @@ import { IconPencilCheck } from "@tabler/icons-react";
 import { useGeneros } from "@/hooks/Generos/useGeneros";
 export const CardGeneros = ({ generos }: { generos: GeneroRequest[] }) => {
   const { generoDelete, loading, error } = useGeneros();
+  
+
+
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
+
   return (
     <>
       <AnimatePresence>
@@ -77,7 +81,7 @@ export const CardGeneros = ({ generos }: { generos: GeneroRequest[] }) => {
 
                 <div className="flex items-center justify-between pt-4 border-t border-border">
                   <div className="flex items-center space-x-2">
-                    <Badge className="text-xs bg-black">cursos</Badge>
+                    <Badge className="text-xs bg-black"> 9 cursos</Badge>
                   </div>
                   <Button variant="outline" size="sm">
                     Ver Cursos
