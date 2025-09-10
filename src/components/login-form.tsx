@@ -31,11 +31,11 @@ export function LoginForm({
                 </motion.p>
                 <h1 className="text-2xl font-bold">Bienvenido</h1>
                 <p className="text-muted-foreground text-balance">
-                  Login to your Acme Inc account
+                  Ingresa con tu cuenta en Olimpo
                 </p>
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">Correo</Label>
                 <Input
                   id="email"
                   type="email"
@@ -45,12 +45,12 @@ export function LoginForm({
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">Contraseña</Label>
                   <a
                     href="#"
                     className="ml-auto text-sm underline-offset-2 hover:underline"
                   >
-                    Forgot your password?
+                    Perdiste tu contraseña?
                   </a>
                 </div>
                 <Input id="password" type="password" required />
@@ -83,8 +83,8 @@ export function LoginForm({
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        Al hacer clic en continuar, acepta nuestros Términos de servicio y Política de privacidad.{" "}
+        
       </div>
     </div>
   );

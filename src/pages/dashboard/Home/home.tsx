@@ -35,7 +35,7 @@ export const Home = () => {
       <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-2 grid-cols-1">
         <div className=" col-span-3">
           <PageDescription
-            title="Dashboard"
+            title="Inicio"
             description="Bienvenido al sistema de gestión de Olimpo Venezuela"
           />
         </div>

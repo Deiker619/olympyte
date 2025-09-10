@@ -12,7 +12,6 @@ import { toast } from "sonner";
 export const AddPagos = () => {
   const { estudiantes } = useEstudiantes();
   const { cursos } = useCursos();
-  console.log(cursos);
   const {
     register,
     handleSubmit,
