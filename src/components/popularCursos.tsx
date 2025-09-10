@@ -43,7 +43,7 @@ export function PopularCourses() {
           <div
             key={course.id}
             className={cn(
-              "flex items-center justify-between p-4 rounded-lg border transition-colors hover:bg-accent-light/20",
+              "flex flex-col md:flex-row items-center justify-between p-4 rounded-lg border transition-colors hover:bg-accent-light/20",
               "animate-fade-in"
             )}
             style={{ animationDelay: `${index * 0.1}s` }}

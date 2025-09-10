@@ -32,7 +32,7 @@ import { AnimatePresence, motion } from "motion/react";
 
 
 export const CardCurso = ({ cursos }: { cursos: Curso[] }) => {
-  const { loading, error, cursoDelete } = useCursos();
+  const { loading, error, cursoDelete, deleteIntructorCurso } = useCursos();
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
 
@@ -104,14 +104,23 @@ export const CardCurso = ({ cursos }: { cursos: Curso[] }) => {
             <div className="">
               <Badge className="bg-black">{curso.genero.nombre}</Badge>
             </div>
-            <div className="flex flex-col space-y-2 px-2 text-gray-500">
+            <div className="flex flex-col space-y-2 px-2 text-gray-500 ">
               {curso.instructores.length > 0 ? (
-                <div className="flex  items-center gap-3">
-                  <UserCheck size={16}></UserCheck>
+                <div className="flex flex-col ">
                   {curso.instructores.map((instructor) => (
-                    <p key={instructor.id} className="text-md">
-                      {instructor.nombre}
-                    </p>
+                    <div className="flex items-center  w-full gap-3">
+
+                      <UserCheck className="shrink-0" size={16}></UserCheck>
+                      <div className="flex justify-between w-full">
+                        <p key={instructor.id} className="text-md w-full flex-1  inline-flex gap-1 text-nowrap items-center">
+                          {instructor.nombre}
+                        </p>
+                        <span onClick={() => deleteIntructorCurso(curso.id, instructor.id)} className="p-2 flex items-center cursor-pointer hover:bg-red-400 hover:text-white w-10 bg-accent rounded-md justify-center mt-1">
+                          <IconTrash size={12} />
+                        </span>
+
+                      </div>
+                    </div>
                   ))}
                 </div>
               ) : (

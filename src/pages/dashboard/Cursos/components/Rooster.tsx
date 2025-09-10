@@ -4,7 +4,7 @@ import type { Rooster } from "@/interfaces/Curso";
 
 export const RoosterDetalles = ({ rooster }: {rooster: Rooster[]}) => {
   return (
-    <Table>
+    <Table className="">
       <TableCaption>Lista de estudiantes del curso.</TableCaption>
       <TableHeader>
         <TableRow>
