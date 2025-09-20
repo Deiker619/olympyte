@@ -20,7 +20,7 @@ interface EstudiantesContextType {
   getEstudiante: (id: string) => Promise<EstudianteDetalles | null>; // 👈 async
   estudianteCreate: (estudiante: EstudianteHasCurso) => void;
   updateEstudiante: (id: number, estudiante: EstudianteHasCurso) => void;
-  fetchEstudiante: ()=>void;
+  fetchEstudiante: () => void;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -38,11 +38,11 @@ export const EstudiantesProvider = ({
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (estudiantes.length === 0) {
 
-      fetchEstudiante();
-    }
-  }, [estudiantes, setEstudiantes]);
+
+    fetchEstudiante();
+
+  }, []);
 
   const fetchEstudiante = async () => {
     setLoading(true);

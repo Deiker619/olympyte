@@ -14,9 +14,10 @@ import { Badge } from "@/components/ui/badge";
 import { AddGeneros } from "./AddGeneros";
 import { IconPencilCheck } from "@tabler/icons-react";
 import { useGeneros } from "@/hooks/Generos/useGeneros";
+import EmptyState from "@/components/emptyState";
 export const CardGeneros = ({ generos }: { generos: GeneroRequest[] }) => {
   const { generoDelete, loading, error } = useGeneros();
-  
+
 
 
   if (loading) return <p>Cargando...</p>;
@@ -25,72 +26,80 @@ export const CardGeneros = ({ generos }: { generos: GeneroRequest[] }) => {
   return (
     <>
       <AnimatePresence>
-        {generos.map((genero) => (
-          <motion.div
-            key={genero.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Card className="card-dashboard  col-span-1">
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center space-x-3">
-                    <div
-                      style={{ backgroundColor: randomColor() }}
-                      className={`w-12 h-12  rounded-xl flex items-center justify-center shadow-medium`}
-                    >
-                      <Music className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg text-foreground">
-                        {genero.nombre}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        Descripción del genero
-                      </p>
-                    </div>
-                  </div>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm">
-                        <MoreVertical className="w-4 h-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem asChild>
-                        <AddGeneros
-                          icon={<IconPencilCheck />}
-                          triggerMessage="Modificar Género"
-                          genero={genero}
-                          id={genero.id}
-                          mode="editing"
-                        ></AddGeneros>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        className="text-destructive"
-                        onClick={() => generoDelete(genero.id)}
+        {generos && generos.length > 0 ? (
+          generos.map((genero) => (
+            <motion.div
+              key={genero.id}
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -50, opacity: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                damping: 12,
+              }}
+            >
+              <Card className="card-dashboard col-span-1">
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div
+                        style={{ backgroundColor: randomColor() }}
+                        className="w-12 h-12 rounded-xl flex items-center justify-center shadow-medium"
                       >
-                        <Trash2 className="w-4 h-4 mr-2" />
-                        Eliminar
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-
-                <div className="flex items-center justify-between pt-4 border-t border-border">
-                  <div className="flex items-center space-x-2">
-                    <Badge className="text-xs bg-black"> 9 cursos</Badge>
+                        <Music className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-lg text-foreground">
+                          {genero.nombre}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          Descripción del género
+                        </p>
+                      </div>
+                    </div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="sm">
+                          <MoreVertical className="w-4 h-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem asChild>
+                          <AddGeneros
+                            icon={<IconPencilCheck />}
+                            triggerMessage="Modificar Género"
+                            genero={genero}
+                            id={genero.id}
+                            mode="editing"
+                          />
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          className="text-destructive"
+                          onClick={() => generoDelete(genero.id)}
+                        >
+                          <Trash2 className="w-4 h-4 mr-2" />
+                          Eliminar
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
-                  <Button variant="outline" size="sm">
-                    Ver Cursos
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
+
+                  <div className="flex items-center justify-between pt-4 border-t border-border">
+                    <div className="flex items-center space-x-2">
+                      <Badge className="text-xs bg-black">9 cursos</Badge>
+                    </div>
+                    <Button variant="outline" size="sm">
+                      Ver Cursos
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))
+        ) : (
+          <EmptyState message="No hay géneros que mostrar" />
+        )}
       </AnimatePresence>
     </>
   );

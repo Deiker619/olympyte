@@ -36,10 +36,8 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
   const { fetchEstudiante } = useEstudiantes()
 
   useEffect(() => {
-    if (cursos.length === 0) {
       fetch();
-    }
-  }, [cursos, setCursos]);
+  }, []);
 
   const cursoCreate = async (curso: CursoCreate) => {
     try {
@@ -57,7 +55,7 @@ export const CursosProvider = ({ children }: { children: React.ReactNode }) => {
     setLoading(true);
     try {
       const { data } = await getCursos();
-      setCursos(data.data);
+      setCursos(data.data??[]);
     } catch (err) {
       setError("Error cargando Cursos");
       console.error(err);

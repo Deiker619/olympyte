@@ -31,23 +31,24 @@ export const SedesProvider = ({ children }: { children: React.ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (sedes.length === 0) {
-      const fetchSedes = async () => {
-        setLoading(true);
-        try {
-          const { data } = await getSedes();
-          setSedes(data.data);
-        } catch (err) {
-          setError("Error cargando Sedes");
-          console.error(err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchSedes();
-    }
-  }, [sedes, setSedes]);
 
+
+    fetchSedes();
+
+  }, []);
+
+  const fetchSedes = async () => {
+    setLoading(true);
+    try {
+      const { data } = await getSedes();
+      setSedes(data.data);
+    } catch (err) {
+      setError("Error cargando Sedes");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   const addNewSede = async (sede: SedeCreate) => {
     try {
       const response = await createSede(sede);
@@ -56,6 +57,7 @@ export const SedesProvider = ({ children }: { children: React.ReactNode }) => {
         // Si la API devuelve la sede creada con ID
         const nuevaSede: Sede = response.data;
         setSedes((prevSedes) => [...prevSedes, nuevaSede]);
+        fetchSedes()
         toast.success("Sede creada correctamente");
       } else {
         console.error("No se pudo crear la sede:", response);
@@ -71,13 +73,13 @@ export const SedesProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (response.status === 201) {
         toast.success("Estudiante agregado correctamente a la sede");
-      } 
+      }
 
-  
+
     } catch (error) {
       console.log(error)
       toast.error("No se pudo registrar en la sede el estudiante, verifique si ya esta inscrito en la sede");
-      
+
     }
   };
 
@@ -92,6 +94,7 @@ export const SedesProvider = ({ children }: { children: React.ReactNode }) => {
             s.id === sedeActualizada.id ? sedeActualizada : s
           )
         );
+        fetchSedes()
         toast.success("Sede actualizada correctamente");
       } else {
         console.error("No se pudo actualizar la sede:", response);
@@ -109,6 +112,7 @@ export const SedesProvider = ({ children }: { children: React.ReactNode }) => {
       console.log(response);
       if (response.status === 200 || response.status === 204) {
         setSedes((prevSedes) => prevSedes.filter((s) => s.id !== id));
+        fetchSedes()
         toast.success("Sede eliminada correctamente");
       } else {
         console.error("No se pudo eliminar la sede:", response);

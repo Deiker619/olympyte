@@ -32,23 +32,24 @@ export const InstructoresProvider = ({
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (instructores.length === 0) {
-      const fetch = async () => {
-        setLoading(true);
-        try {
-          const { data } = await getInstructores();
-          setInstructores(data.data);
-        } catch (err) {
-          setError("Error cargando instructores");
-          console.error(err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetch();
-    }
-  }, [instructores, setInstructores]);
 
+
+    fetch();
+
+  }, []);
+
+  const fetch = async () => {
+    setLoading(true);
+    try {
+      const { data } = await getInstructores();
+      setInstructores(data.data);
+    } catch (err) {
+      setError("Error cargando instructores");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   const intructorCreate = async (instructor: IntructorCreate) => {
     try {
       const response = await createInstructor(instructor);

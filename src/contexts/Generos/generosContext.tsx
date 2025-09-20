@@ -16,7 +16,7 @@ interface GenerosContextType {
   addNewGenero: (genero: GeneroCreate) => void;
   generoDelete: (id: number) => void;
   generoUpdate: (id: number, genero: GeneroCreate) => void,
-  getCursoPorGenero: (id:number | string)=>void
+  getCursoPorGenero: (id: number | string) => void
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -34,23 +34,24 @@ export const GenerosProvider = ({
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (generos.length === 0) {
-      const fetchGeneros = async () => {
-        setLoading(true);
-        try {
-          const { data } = await getGeneros();
-          setGeneros(data.data);
-        } catch (err) {
-          setError("Error cargando géneros");
-          console.error(err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchGeneros();
-    }
-  }, [generos, setGeneros]);
 
+
+    fetchGeneros();
+
+  }, []);
+
+  const fetchGeneros = async () => {
+    setLoading(true);
+    try {
+      const { data } = await getGeneros();
+      setGeneros(data.data);
+    } catch (err) {
+      setError("Error cargando géneros");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   const addNewGenero = async (genero: GeneroCreate) => {
     try {
       const response = await createGenero(genero);
@@ -102,17 +103,17 @@ export const GenerosProvider = ({
     }
   };
 
-    const getCursoPorGenero = async (id: string | number) => {
-      try {
-  
-        const response = await GetCursoPorGenero(id)
-        console.log(response.data);
-      } catch (error) {
-        console.log(error)
-        toast.error("Error al obtener cursos de los generos");
-      }
-  
+  const getCursoPorGenero = async (id: string | number) => {
+    try {
+
+      const response = await GetCursoPorGenero(id)
+      console.log(response.data);
+    } catch (error) {
+      console.log(error)
+      toast.error("Error al obtener cursos de los generos");
     }
+
+  }
   return (
     <GenerosContext.Provider
       value={{
