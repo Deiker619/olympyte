@@ -11,7 +11,7 @@ export interface Estudiante {
   created_at: string; // DATETIME en formato ISO o YYYY-MM-DD HH:mm:ss
   updated_at: string; // DATETIME en formato ISO o YYYY-MM-DD HH:mm:ss
 }
-export type EstudianteHasCurso = Pick<Estudiante, 'id'| 'nombre' | 'apellido'> &{
+export type EstudianteHasCurso = Pick<Estudiante, 'id'| 'nombre' | 'telefono'|'apellido'> &{
   sedes_inscritas: SedeHasEstudiante[],
   cursos?: CursoHasEstudiante[],
 }

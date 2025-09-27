@@ -1,0 +1,27 @@
+import api from "@/api/api";
+import type { Asistencia } from "@/interfaces/Asistencia";
+import { toast } from "sonner";
+
+export const CreateAsistencias = async (Asistencia: Asistencia) => {
+  console.log(Asistencia)
+  try {
+    const response = await api.post("/asistencia", Asistencia);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    toast.error("Se produjo un erro al registrar Asistencia");
+    console.log(error);
+  }
+};
+
+export const getAllAsistencias = async () => {
+    try {
+        const response = await api.get('/asistencias')
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        console.log(error)
+        toast.error('Se produjo un error al obtener asistencias')
+        return
+    }
+};

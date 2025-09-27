@@ -20,3 +20,12 @@ export interface InscripcionSede {
   updatedAt: string;
   sede: Sede;
 }
+export type detalleSedes = {
+  id: number,
+  nombre: string,
+  direccion: string,
+  telefono: string,
+  cursos: number,
+  inscritos: number
+
+}

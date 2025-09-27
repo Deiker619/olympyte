@@ -9,11 +9,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { useCursos } from "@/hooks/Cursos/useCursos";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   DollarSign,
   MapPin,
   MoreVertical,
+  Table,
   UserCheck,
   Users,
 } from "lucide-react";
@@ -34,6 +35,7 @@ import EmptyState from "@/components/emptyState";
 
 export const CardCurso = ({ cursos }: { cursos: Curso[] }) => {
   const { loading, error, cursoDelete, deleteIntructorCurso } = useCursos();
+  const navigate = useNavigate()
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
 
@@ -63,6 +65,11 @@ export const CardCurso = ({ cursos }: { cursos: Curso[] }) => {
                     <DropdownMenuItem onClick={() => cursoDelete(curso.id)}>
                       <span className="flex gap-2 items-center">
                         <IconTrash /> Eliminar
+                      </span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() =>navigate(`/cursos/asistencias-create/${curso.id}`) }>
+                      <span className="flex gap-2 items-center">
+                        <Table /> Gestionar Asistencias
                       </span>
                     </DropdownMenuItem>
 
