@@ -114,11 +114,11 @@ export const CardSedes = ({ sedes }: { sedes: Sede[] }) => {
                   {/* Stats */}
                   <div className="grid grid-cols-3 gap-4 mb-4">
                     <div className="text-center p-3 bg-muted rounded-lg">
-                      <p className="text-lg font-bold text-primary">10</p>
+                      <p className="text-lg font-bold text-primary">{sede.cursos}</p>
                       <p className="text-xs text-muted-foreground">Cursos</p>
                     </div>
                     <div className="text-center p-3 bg-muted rounded-lg">
-                      <p className="text-lg font-bold text-green-600">10</p>
+                      <p className="text-lg font-bold text-green-600">{sede.inscritos}</p>
                       <p className="text-xs text-muted-foreground">Inscritos</p>
                     </div>
                     <div className="text-center p-3 bg-muted rounded-lg">

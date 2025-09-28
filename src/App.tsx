@@ -18,6 +18,7 @@ import { DetallesSedes } from "./pages/dashboard/Sedes/components/DetallesSedes"
 import { Pagos } from "./pages/dashboard/Pagos/Pagos";
 import { Login } from "./pages/auth/Login";
 import CreateAsistencia from "./pages/dashboard/Asistencias/CreateAsistencia";
+import DetallesAsistencia from "./pages/dashboard/Asistencias/components/detallesAsistencia";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
                     <Route path="/cursos" element={<Cursos></Cursos>} />
                     <Route path="/cursos/:id" element={<DetallesCursos />} />
                     <Route path="/cursos/asistencias-create/:id" element={<CreateAsistencia/>} />
+                    <Route path="/cursos/asistencias-detalles/:id" element={<DetallesAsistencia/>} />
                     <Route path="/generos" element={<Generos></Generos>} />
                     <Route
                       path="/estudiantes"

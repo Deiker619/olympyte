@@ -5,8 +5,9 @@ import { toast } from "sonner";
 export const CreateAsistencias = async (Asistencia: Asistencia) => {
   console.log(Asistencia)
   try {
-    const response = await api.post("/asistencia", Asistencia);
+    const response = await api.post("/asistencias", Asistencia);
     console.log(response.data);
+    toast.success('Asistencia creada correctamente')
     return response.data;
   } catch (error) {
     toast.error("Se produjo un erro al registrar Asistencia");

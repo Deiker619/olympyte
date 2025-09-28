@@ -3,7 +3,8 @@ export interface Sede {
   nombre: string; // Nombre de la sede
   direccion: string; // Dirección
   telefono: string; // Teléfono de contacto
-
+  cursos: number,
+  inscritos: number
 }
 
 export type SedeCreate = Omit<Sede, 'id'> & { id?: number };

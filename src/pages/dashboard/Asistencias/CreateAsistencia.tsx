@@ -11,47 +11,47 @@ import { useCursoDetalles } from "@/hooks/Cursos/rooster/useCursoDetalles";
 import { CreateAsistencias } from "@/services/Asistencias/AsistenciaServices";
 import type { Asistencia } from "@/interfaces/Asistencia";
 
-
 export default function CreateAsistencia() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { detallesCurso } = useCursoDetalles(id);
-  const [attendance, setAttendance] = useState<{ estudiante_id: number; presente: boolean }[]>([]);
-  
-  
-  const handleAttendanceChange = (studentId: number, isPresent: boolean) => {
-    setAttendance(prev => {
-      const updated = prev.filter(item => item.estudiante_id !== studentId);
-      return [
-        ...updated,
-        { estudiante_id: studentId, presente: isPresent }
-      ];
-    });
-  };
 
   const [fechaClase, setFechaClase] = useState("");
 
   const handleFechaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFechaClase(e.target.value);
   };
-  
-  
+  const [attendance, setAttendance] = useState<
+    { estudiante_id: number; presente: boolean }[]
+  >([]);
+
+  const handleAttendanceChange = (studentId: number, isPresent: boolean) => {
+    setAttendance((prev) => {
+      if (isPresent) {
+        // ✅ Agregar estudiante si está presente
+        return [...prev, { estudiante_id: studentId, presente: true }];
+      } else {
+        // ❌ Quitar estudiante si se desmarca
+        return prev.filter((item) => item.estudiante_id !== studentId);
+      }
+    });
+  };
+
+  const isPresent = (studentId: number) =>
+    attendance.some((a) => a.estudiante_id === studentId);
   const handleSave = async () => {
     // Save attendance logic here
     const asistencia: Asistencia = {
-      curso_id: +(id || '0'),
+      curso_id: +(id || "0"),
       fecha: fechaClase,
-      items: attendance
-      
-    }
-    const data =  await CreateAsistencias(asistencia)
-    console.log(data)
-
+      items: attendance,
+    };
+    const data = await CreateAsistencias(asistencia);
+    console.log(data);
   };
-  
-  const presentCount = Object.values(attendance).filter(Boolean).length;
-  const totalStudents = detallesCurso?.roster.length ?? 0;
 
+  const presentCount = attendance.filter((item) => item.presente).length;
+  const totalStudents = detallesCurso?.roster.length ?? 0;
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -71,9 +71,10 @@ export default function CreateAsistencia() {
             <h1 className="text-3xl font-bold text-foreground">Asistencia</h1>
             <p className="text-muted-foreground mt-1">
               {detallesCurso?.curso.nombre} -{" "}
-              {detallesCurso?.curso.instructores?.map((inst) => inst.nombre).join(", ")}
+              {detallesCurso?.curso.instructores
+                ?.map((inst) => inst.nombre)
+                .join(", ")}
             </p>
-
           </div>
         </div>
         <Button onClick={handleSave} className="text-black">
@@ -130,12 +131,19 @@ export default function CreateAsistencia() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-foreground">
-              {totalStudents > 0 ? Math.round((presentCount / totalStudents) * 100) : 0}%
+              {totalStudents > 0
+                ? Math.round((presentCount / totalStudents) * 100)
+                : 0}
+              %
             </div>
             <div className="w-full bg-muted rounded-full h-2 mt-2">
               <div
                 className="bg-primary h-2 rounded-full transition-all duration-300"
-                style={{ width: `${totalStudents > 0 ? (presentCount / totalStudents) * 100 : 0}%` }}
+                style={{
+                  width: `${
+                    totalStudents > 0 ? (presentCount / totalStudents) * 100 : 0
+                  }%`,
+                }}
               />
             </div>
           </CardContent>
@@ -160,12 +168,18 @@ export default function CreateAsistencia() {
               >
                 <Checkbox
                   id={`student-${rooster.estudiante.id}`}
-                  checked={
-                    attendance.find(item => item.estudiante_id === rooster.estudiante.id)?.presente || false
+                  checked={isPresent(rooster.estudiante.id)} // <- aquí
+                  onChange={(e) =>
+                    handleAttendanceChange(
+                      rooster.estudiante.id,
+                      (e.target as HTMLInputElement).checked
+                    )
                   }
-
                   onCheckedChange={(checked) =>
-                    handleAttendanceChange(rooster.estudiante.id, checked as boolean)
+                    handleAttendanceChange(
+                      rooster.estudiante.id,
+                      checked as boolean
+                    )
                   }
                   className="scale-125"
                 />
@@ -182,12 +196,14 @@ export default function CreateAsistencia() {
                     </div>
                   </label>
                 </div>
-                <div className={cn(
-                  "px-3 py-1 rounded-full text-xs font-medium transition-colors",
-                  attendance[rooster.estudiante.id]
-                    ? "bg-green-500/20 text-green-500"
-                    : "bg-muted text-muted-foreground"
-                )}>
+                <div
+                  className={cn(
+                    "px-3 py-1 rounded-full text-xs font-medium transition-colors",
+                    attendance[rooster.estudiante.id]
+                      ? "bg-green-500/20 text-green-500"
+                      : "bg-muted text-muted-foreground"
+                  )}
+                >
                   {attendance[rooster.estudiante.id] ? "Presente" : "Ausente"}
                 </div>
               </div>

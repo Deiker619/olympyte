@@ -16,9 +16,13 @@ import { Mail, MoreVertical, Phone, UserCheck } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { AddInstructor } from "./AddInstructor";
 import EmptyState from "@/components/emptyState";
-export const CardInstructores = ({ instructores }: { instructores: Instructor[] }) => {
+export const CardInstructores = ({
+  instructores,
+}: {
+  instructores: Instructor[];
+}) => {
   const { loading, error, instructorDelete } = useInstructores();
-  console.log(instructores)
+  console.log(instructores);
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
   return (
@@ -95,21 +99,29 @@ export const CardInstructores = ({ instructores }: { instructores: Instructor[] 
                       Especialidades:
                     </p>
                     <div className="flex flex-wrap gap-1">
-                      <Badge>Bachata sensual</Badge>
-                      <Badge>Merengue</Badge>
-                      <Badge>Salsa</Badge>
+                      {instructor.especialidades.map((especialidad, index) => (
+                        <Badge className="text-black" key={index}>{especialidad}</Badge>
+                      ))}
                     </div>
                   </div>
 
                   {/* Stats */}
                   <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
                     <div className="text-center">
-                      <p className="text-lg font-bold text-primary">3</p>
-                      <p className="text-xs text-muted-foreground">Cursos Activos</p>
+                      <p className="text-lg font-bold text-primary">
+                        {instructor.cursosActivos}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Cursos Activos
+                      </p>
                     </div>
                     <div className="text-center">
-                      <p className="text-lg font-bold text-primary">40</p>
-                      <p className="text-xs text-muted-foreground">Estudiantes</p>
+                      <p className="text-lg font-bold text-primary">
+                        {instructor.estudiantesCount}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Estudiantes
+                      </p>
                     </div>
                   </div>
                 </CardContent>

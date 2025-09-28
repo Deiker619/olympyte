@@ -25,6 +25,7 @@ import {
   IconPencilCheck,
   IconEye,
   IconUserPlus,
+  IconDetails,
 } from "@tabler/icons-react";
 import { AddInstructorCurso } from "./AddInstructorCurso";
 import { AddRooster } from "./AddRooster";
@@ -69,7 +70,12 @@ export const CardCurso = ({ cursos }: { cursos: Curso[] }) => {
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() =>navigate(`/cursos/asistencias-create/${curso.id}`) }>
                       <span className="flex gap-2 items-center">
-                        <Table /> Gestionar Asistencias
+                        <Table /> Tomar Asistencias
+                      </span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() =>navigate(`/cursos/asistencias-detalles/${curso.id}`) }>
+                      <span className="flex gap-2 items-center">
+                        <IconDetails /> Detalles Asistencias
                       </span>
                     </DropdownMenuItem>
 
