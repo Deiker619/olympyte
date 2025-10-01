@@ -88,7 +88,6 @@ export default function DetallesAsistencia() {
           toast.info('No hay asistencias registradas en esa fecha')
         } else {
           setAsistencia(response); // ← guardo la data real
-          console.log(asistencia?.presentes)
         }
       }
     };
