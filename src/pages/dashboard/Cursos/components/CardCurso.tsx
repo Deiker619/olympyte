@@ -24,14 +24,14 @@ import {
   IconPlus,
   IconPencilCheck,
   IconEye,
-  IconUserPlus,
-  IconDetails,
+  IconUserPlus
 } from "@tabler/icons-react";
 import { AddInstructorCurso } from "./AddInstructorCurso";
 import { AddRooster } from "./AddRooster";
 import type { Curso } from "@/interfaces/Curso";
 import { AnimatePresence, motion } from "motion/react";
 import EmptyState from "@/components/emptyState";
+import { SetFechasAsistenciaModal } from "../../Asistencias/components/setFechasAsistenciaModal";
 
 
 export const CardCurso = ({ cursos }: { cursos: Curso[] }) => {
@@ -73,10 +73,9 @@ export const CardCurso = ({ cursos }: { cursos: Curso[] }) => {
                         <Table /> Tomar Asistencias
                       </span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() =>navigate(`/cursos/asistencias-detalles/${curso.id}`) }>
-                      <span className="flex gap-2 items-center">
-                        <IconDetails /> Detalles Asistencias
-                      </span>
+                    
+                    <DropdownMenuItem asChild>
+                      <SetFechasAsistenciaModal id={curso.id}/>
                     </DropdownMenuItem>
 
                     <DropdownMenuItem asChild>

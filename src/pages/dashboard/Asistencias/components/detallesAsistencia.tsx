@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,26 +6,20 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useLocation } from "react-router-dom";
+import { getAllAsistenciasPorFecha } from "@/services/Asistencias/AsistenciaServices";
 
-import { 
-  ArrowLeft, 
-  Search, 
-  Users, 
-  TrendingUp, 
-  Clock,
+import {
+  ArrowLeft,
+  Search,
+  Users,
+  TrendingUp,
   Filter
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { AsistenciaPorFecha } from "@/interfaces/detallesCursos";
+import { toast } from "sonner";
 
-// Mock data - replace with real data
-const mockCourse = {
-  id: 1,
-  name: "Salsa Cubana Básica",
-  genre: "Salsa",
-  instructor: "Pedro Martínez",
-  venue: "Sede Principal",
-  totalStudents: 6
-};
 
 const mockAttendanceData = [
   {
@@ -77,25 +71,39 @@ const mockAttendanceData = [
 
 /* FIXME: SE PUEDE FRAGMENTAR EN VARIOS COMPONENTES  */
 export default function DetallesAsistencia() {
+  const location = useLocation();
+  const fecha = location.state?.fecha;
   const { id } = useParams();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPeriod, setSelectedPeriod] = useState("month");
-  console.log(id)
 
-  const filteredData = mockAttendanceData.filter(record =>
-    record.students.some(student =>
-      student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student.cedula.includes(searchTerm)
-    )
-  );
+  const [asistencia, setAsistencia] = useState<AsistenciaPorFecha>();
+  useEffect(() => {
+    const fetchData = async () => {
+      if (id && fecha) {
+        const response = await getAllAsistenciasPorFecha(fecha, +id);
+        if (!response) {
+          navigate(-1);
+          toast.info('No hay asistencias registradas en esa fecha')
+        } else {
+          setAsistencia(response); // ← guardo la data real
+          console.log(asistencia?.presentes)
+        }
+      }
+    };
+    fetchData();
+  }, [id, fecha, navigate]);
+
+  console.log(id, fecha)
+
+  
 
   const overallStats = {
-    totalClasses: mockAttendanceData.length,
     averageAttendance: Math.round(
       mockAttendanceData.reduce((acc, record) => acc + record.attendanceRate, 0) / mockAttendanceData.length
     ),
-    totalPresente: mockAttendanceData.reduce((acc, record) => acc + record.presente, 0),
+    totalPresente: asistencia?.presentes,
     totalAbsent: mockAttendanceData.reduce((acc, record) => acc + record.absent, 0)
   };
 
@@ -104,9 +112,9 @@ export default function DetallesAsistencia() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <Button 
-            variant="ghost" 
-            size="sm" 
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={() => navigate("/cursos")}
             className="text-muted-foreground hover:text-foreground"
           >
@@ -116,27 +124,15 @@ export default function DetallesAsistencia() {
           <div>
             <h1 className="text-3xl font-bold text-foreground">Detalles de Asistencia</h1>
             <p className="text-muted-foreground mt-1">
-              {mockCourse.name} - {mockCourse.instructor}
+              
             </p>
           </div>
         </div>
       </div>
 
       {/* Summary Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="card-dashboard">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg flex items-center">
-              <Clock className="w-5 h-5 mr-2 text-primary" />
-              Total Clases
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-foreground">
-              {overallStats.totalClasses}
-            </div>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
 
         <Card className="card-dashboard">
           <CardHeader className="pb-3">
@@ -193,7 +189,7 @@ export default function DetallesAsistencia() {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input 
+              <Input
                 placeholder="Buscar estudiante..."
                 className="pl-10"
                 value={searchTerm}
@@ -225,29 +221,30 @@ export default function DetallesAsistencia() {
         </CardHeader>
         <CardContent>
           <div className="space-y-6">
-            {filteredData.map((record, index) => (
-              <div 
-                key={record.date}
+          
+              <div
                 className="border border-border rounded-lg p-6 animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                
               >
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="text-lg font-semibold text-foreground">
-                      Algo de fecha
+                      {asistencia?.fecha}
                     </h3>
                     <p className="text-muted-foreground">
-                      {record.presente} presentees de {record.totalStudents} estudiantes
+                      {asistencia?.presentes ?? 0} presentes de 30 estudiantes
                     </p>
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-foreground">
-                      {record.attendanceRate}%
+                      {asistencia?.presentes ? Math.round((asistencia?.presentes / 30) * 100) : 0}%
                     </div>
                     <div className="w-24 bg-muted rounded-full h-2 mt-1">
-                      <div 
+                      <div
                         className="bg-primary h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${record.attendanceRate}%` }}
+                        style={{
+                          width: `${asistencia?.presentes ? (asistencia?.presentes / 30) * 100 : 0}%`,
+                        }}
                       />
                     </div>
                   </div>
@@ -257,37 +254,41 @@ export default function DetallesAsistencia() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Estudiante</TableHead>
-                      <TableHead>Cédula</TableHead>
+                      <TableHead>Teléfono</TableHead>
+                      <TableHead>Email</TableHead>
                       <TableHead className="text-center">Estado</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {record.students.map((student) => (
-                      <TableRow key={student.cedula}>
-                        <TableCell className="font-medium">
-                          {student.name}
-                        </TableCell>
-                        <TableCell className="text-muted-foreground">
-                          {student.cedula}
-                        </TableCell>
-                        <TableCell className="text-center">
-                          <Badge 
-                            variant={student.status === "presente" ? "default" : "destructive"}
-                            className={cn(
-                              student.status === "presente" 
-                                ? "bg-green-500/20 text-green-500 hover:bg-green-500/30" 
-                                : ""
-                            )}
-                          >
-                            {student.status === "presente" ? "Presente" : "Ausente"}
-                          </Badge>
-                        </TableCell>
-                      </TableRow>
+                    {asistencia?.estudiantes.map((estud) => (
+                      
+                        <TableRow key={estud.estudiante_id}>
+                          <TableCell className="font-medium">{estud.nombre}</TableCell>
+                          <TableCell className="text-muted-foreground">{estud.telefono}</TableCell>
+                          <TableCell className="text-muted-foreground">
+                            {estud.email ?? "No registrado"}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <Badge
+                              variant={estud.presente ? "default" : "destructive"}
+                              className={cn(
+                                estud.presente
+                                  ? "bg-green-500/20 text-green-500 hover:bg-green-500/30"
+                                  : ""
+                              )}
+                            >
+                              {estud.presente == true ? 'Presente' : 'Ausente'}
+                            </Badge>
+                          </TableCell>
+                        </TableRow>
+                      
                     ))}
+
                   </TableBody>
                 </Table>
               </div>
-            ))}
+          
+
           </div>
         </CardContent>
       </Card>
