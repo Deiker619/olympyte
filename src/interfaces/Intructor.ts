@@ -8,7 +8,12 @@ export interface Instructor {
   email: string;
   created_at: string; // Fecha de creación (DATETIME)
   updated_at: string; // Fecha de actualización (DATETIME)
+  estudiantesCount: number,
+  cursosActivos:number,
+  especialidades: Especialidades
 }
+
+export type Especialidades = string[]
 
 export type IntructorCreate = Omit<Instructor,  'created_at'|'updated_at'>
 export type InstructorCurso = Pick<Instructor, 'id'|'nombre'>

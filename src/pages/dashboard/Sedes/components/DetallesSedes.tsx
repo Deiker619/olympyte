@@ -4,7 +4,16 @@ import { IconCashBanknote } from "@tabler/icons-react";
 import { useParams, Navigate } from "react-router-dom";
 
 import { useSedeDetalles } from "@/hooks/Sedes/sedesDetalles/useSedesDetalles";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { toast } from "sonner";
 
 export const DetallesSedes = () => {
   const { id } = useParams<{ id: string }>();
@@ -12,13 +21,18 @@ export const DetallesSedes = () => {
   console.log(detallesSede);
   if (!id) return <Navigate to="/sedes" replace />;
   if (!detallesSede) return <p>Cargando sede...</p>;
+  if (detallesSede.length === 0) {
+    toast.info("No hay personas inscritas en la sede");
+    return <Navigate to="/sedes" replace />;
+  }
 
   return (
     <div className="px-4 lg:px-6 space-y-6">
       <div className="w-full flex flex-col h-20">
         <div className="w-full h-full flex flex-col items-center justify-center ">
-          <p className="text-3xl">Inscripciones de {detallesSede[0].sede.nombre}</p>
-          
+          <p className="text-3xl">
+            Inscripciones de {detallesSede[0].sede.nombre}
+          </p>
         </div>
       </div>
 
@@ -40,23 +54,28 @@ export const DetallesSedes = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {detallesSede?.map((detalle) => (
-                <TableRow key={detalle.id}>
-                  <>
-                    <TableCell className="font-medium p-4">{detalle.id}</TableCell>
+              {detallesSede && detallesSede.length > 0 ? (
+                detallesSede.map((detalle) => (
+                  <TableRow key={detalle.id}>
+                    <TableCell className="font-medium p-4">
+                      {detalle.id}
+                    </TableCell>
                     <TableCell>{detalle.estudiante_id}</TableCell>
-                    <TableCell>
-                      {detalle.fecha_inscripcion}
-                    </TableCell>
-                    <TableCell>
-                      {detalle.monto_pagado}
-                    </TableCell>
-                    <TableCell className="flex flex-col justify-start w-30">
-                     
-                    </TableCell>
-                  </>
+                    <TableCell>{detalle.fecha_inscripcion}</TableCell>
+                    <TableCell>{detalle.monto_pagado}</TableCell>
+                    <TableCell className="flex flex-col justify-start w-30"></TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={5}
+                    className="text-center py-4 text-muted-foreground"
+                  >
+                    No hay inscripciones registradas
+                  </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </div>

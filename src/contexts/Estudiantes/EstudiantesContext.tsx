@@ -97,7 +97,7 @@ export const EstudiantesProvider = ({
       }
     } catch (error) {
       console.error("Error creando estudiante:", error);
-      toast.success('Error al crear estudiante')
+      toast.error('Error al crear estudiante')
     }
   };
   const updateEstudiante = async (id: number, estudiante: EstudianteHasCurso) => {

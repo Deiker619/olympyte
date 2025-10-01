@@ -3,7 +3,8 @@ export interface Sede {
   nombre: string; // Nombre de la sede
   direccion: string; // Dirección
   telefono: string; // Teléfono de contacto
-
+  cursos: number,
+  inscritos: number
 }
 
 export type SedeCreate = Omit<Sede, 'id'> & { id?: number };
@@ -19,4 +20,13 @@ export interface InscripcionSede {
   createdAt: string;          // ISO datetime en string
   updatedAt: string;
   sede: Sede;
+}
+export type detalleSedes = {
+  id: number,
+  nombre: string,
+  direccion: string,
+  telefono: string,
+  cursos: number,
+  inscritos: number
+
 }

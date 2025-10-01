@@ -38,7 +38,7 @@ export function AddEstudiante({
 
   const { register, handleSubmit, reset } = useForm<EstudianteHasCurso>({
     mode: "onChange",
-    defaultValues: estudiante || { id: 0, nombre: "", apellido: "" },
+    defaultValues: estudiante || { id: 0, nombre: "", apellido: "", telefono: '' },
   });
 
   useEffect(() => {
@@ -92,6 +92,10 @@ export function AddEstudiante({
             <div className="grid gap-3 col-span-2">
               <Label htmlFor="id">Cédula</Label>
               <Input id="id" {...register("id")} />
+            </div>
+            <div className="grid gap-3 col-span-2">
+              <Label htmlFor="telefono">Teléfono</Label>
+              <Input id="telefono" {...register("telefono")} />
             </div>
           </div>
           <AlertDialogFooter>
