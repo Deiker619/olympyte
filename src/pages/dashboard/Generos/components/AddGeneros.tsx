@@ -37,7 +37,7 @@ export function AddGeneros({
 }: CreateGeneroProps) {
   const [useMode] = useState<"create" | "editing">(mode);
   const { addNewGenero, generoUpdate } = useGeneros();
-
+    const [open, setOpen] = useState(false); 
   const { register, reset, handleSubmit, formState: { isValid, errors } } =
     useForm<GeneroForm>({
       mode: "onChange",
@@ -54,11 +54,12 @@ export function AddGeneros({
     } else if (id) {
       generoUpdate(id, data);
     }
+    setOpen(false); 
     reset();
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         {useMode === "create"
           ?

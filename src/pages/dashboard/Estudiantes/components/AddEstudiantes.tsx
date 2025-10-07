@@ -40,6 +40,7 @@ export function AddEstudiante({
     mode: "onChange",
     defaultValues: estudiante || { id: 0, nombre: "", apellido: "", telefono: '' },
   });
+  const [open, setOpen] = useState(false); 
 
   useEffect(() => {
     if (estudiante) reset(estudiante);
@@ -52,10 +53,11 @@ export function AddEstudiante({
       console.log(data.id, data)
       updateEstudiante(id??0, data)
     }
+    setOpen(false); 
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         {useMode === "create"
           ?

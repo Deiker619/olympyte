@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import { useInstructores } from "@/hooks/Instructores/useInstructores";
 import { Button } from "@/components/ui/button";
 import { useCursos } from "@/hooks/Cursos/useCursos";
+import { useState } from "react";
 
 type InstructorAddCursoForm = {
   instructores: number;
@@ -37,6 +38,7 @@ export function AddInstructorCurso({
 
   const handleClick = (data: InstructorAddCursoForm) => {
     addInstructorCurso(curso, data.instructores)
+    setOpen(false); 
     console.log("Instructores seleccionados:", data.instructores, curso);
   };
 
@@ -46,9 +48,10 @@ export function AddInstructorCurso({
       instructores: 0,
     },
   });
+  const [open, setOpen] = useState(false); 
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen} >
       <AlertDialogTrigger asChild>
         {/* Botón con estilos de DropdownMenuItem */}
         <button className="focus:bg-accent w-full hover:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4">

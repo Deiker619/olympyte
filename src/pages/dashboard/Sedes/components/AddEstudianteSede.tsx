@@ -37,7 +37,8 @@ export function AddEstudianteSede({
   const [useMode] = useState<"create" | "editing">(mode);
   const { estudiantes } = useEstudiantes();
   const { addEstudianteInSede} = useSedes();
-
+  
+  const [open, setOpen] = useState(false); 
   const { register, handleSubmit, reset } = useForm<estudianteAsignSede>({
     mode: "onChange",
     defaultValues: {
@@ -50,13 +51,14 @@ export function AddEstudianteSede({
         data.sede_id = sede.id
         console.log(data)
         addEstudianteInSede(data)
+        setOpen(false); 
         reset()
 
     }
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         {useMode === "create" ? (
           <Button>

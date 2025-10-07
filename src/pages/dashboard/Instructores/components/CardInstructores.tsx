@@ -99,9 +99,14 @@ export const CardInstructores = ({
                       Especialidades:
                     </p>
                     <div className="flex flex-wrap gap-1">
-                      {instructor.especialidades.map((especialidad, index) => (
-                        <Badge className="text-black" key={index}>{especialidad}</Badge>
-                      ))}
+                      {instructor.especialidades && instructor.especialidades.length > 0 ? (
+                        instructor.especialidades.map((especialidad, index) => (
+                          <Badge className="text-black" key={index}>
+                            {especialidad}
+                          </Badge>
+                        ))
+                      ) : null}
+
                     </div>
                   </div>
 

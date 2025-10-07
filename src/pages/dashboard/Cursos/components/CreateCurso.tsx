@@ -38,6 +38,7 @@ export function CreateCurso({
   const [useMode] = useState<ModeType>(mode);
   const { sedes } = useSedes();
   const { generos } = useGeneros();
+  const [open, setOpen] = useState(false); 
   const { cursoCreate, cursoUpdate } = useCursos();
   const {
     register,
@@ -75,10 +76,11 @@ export function CreateCurso({
       console.log(data);
       cursoUpdate(id ?? 0, data);
     }
+      setOpen(false); 
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild >
         {useMode === "create" ? (
           <Button className="text-black">

@@ -35,7 +35,8 @@ export function AddSedes({
 }: CreateSedeProps) {
   const [useMode] = useState<ModeType>(mode);
   const { addNewSede, updateSede } = useSedes();
-
+  
+  const [open, setOpen] = useState(false); 
   const {
     register,
     reset,
@@ -60,11 +61,12 @@ export function AddSedes({
     } else {
       updateSede(id??0,data); // Ajusta según tu firma de update
     }
+    setOpen(false); 
     reset();
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         {useMode === "create" ? (
           <Button className="text-black">

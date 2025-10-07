@@ -35,7 +35,7 @@ export function AddInstructor({
 }: CreateInstructorProps) {
   const [useMode] = useState<ModeType>(mode);
   const { intructorCreate, updateInstructor } = useInstructores();
-
+  const [open, setOpen] = useState(false); 
   const {
     register,
     handleSubmit,
@@ -62,11 +62,12 @@ export function AddInstructor({
     } else {
       updateInstructor(id??0, data);
     }
+    setOpen(false); 
     reset();
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         {useMode === "create" ? (
           <Button className="text-black">

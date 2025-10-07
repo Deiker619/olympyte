@@ -16,7 +16,6 @@ import {
   MoreVertical,
   Table,
   UserCheck,
-  Users,
 } from "lucide-react";
 import { CreateCurso } from "./CreateCurso";
 import {
@@ -169,10 +168,7 @@ export const CardCurso = ({ cursos }: { cursos: Curso[] }) => {
               <Separator />
 
               <div className="flex items-center px-2">
-                <div className="flex-1 flex items-center gap-3">
-                  <Users size={16} className="text-primary" />
-                  <div className="font-semibold">24/30</div>
-                </div>
+                
 
                 <div className="w-20 overflow-hidden bg-muted rounded-full h-2">
                   <div

@@ -52,6 +52,21 @@ export const AddPagos = () => {
       <p className="mb-3 text-center text-2xl">Registrar Pago </p>
       <form onSubmit={handleSubmit(handleClick)}>
         <div className="grid grid-cols-2 gap-3 mb-4">
+           <div className="grid gap-3 col-span-2 md:col-span-2 ">
+            <Label htmlFor="sede">Curso</Label>
+            <select
+              id="curso"
+              {...register("curso_id", { valueAsNumber: true })}
+              className="border border-gray-300 rounded-md p-2 text-sm w-full"
+            >
+              <option value="">Selecciona un Curso</option>
+              {cursos.map((curso) => (
+                <option key={curso.id} value={curso.id}>
+                  {curso.nombre} - {curso.sede.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="grid gap-3 col-span-2 md:col-span-2">
             <Label htmlFor="sede">Estudiantes</Label>
             <select
@@ -68,21 +83,7 @@ export const AddPagos = () => {
             </select>
           </div>
 
-          <div className="grid gap-3 col-span-2 md:col-span-2 ">
-            <Label htmlFor="sede">Curso</Label>
-            <select
-              id="curso"
-              {...register("curso_id", { valueAsNumber: true })}
-              className="border border-gray-300 rounded-md p-2 text-sm w-full"
-            >
-              <option value="">Selecciona un Curso</option>
-              {cursos.map((curso) => (
-                <option key={curso.id} value={curso.id}>
-                  {curso.nombre} - {curso.sede.nombre}
-                </option>
-              ))}
-            </select>
-          </div>
+         
 
           <div className="grid gap-3 col-span-2 md:col-span-1">
             <Label htmlFor="mes">Mes</Label>

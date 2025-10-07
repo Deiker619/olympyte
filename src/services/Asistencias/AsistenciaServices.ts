@@ -17,7 +17,7 @@ export const CreateAsistencias = async (Asistencia: Asistencia) => {
 
 export const getAllAsistenciasPorFecha = async (fecha: string, curso:number) => {
     try {
-        const response = await api.get(`/asistencias/curso/${curso}/detalle?fecha=${fecha}`)
+        const response = await api.get(`/asistencias/curso/${curso}/detalle/?fecha=${fecha}`)
         console.log(response.data)
         return response.data
     } catch (error) {

@@ -102,9 +102,10 @@ export default function DetallesAsistencia() {
     averageAttendance: Math.round(
       mockAttendanceData.reduce((acc, record) => acc + record.attendanceRate, 0) / mockAttendanceData.length
     ),
-    totalPresente: asistencia?.presentes,
-    totalAbsent: mockAttendanceData.reduce((acc, record) => acc + record.absent, 0)
+    totalPresente: asistencia?.presentes ?? 0,
+    totalAbsent: (asistencia?.total ?? 0) - (asistencia?.presentes ?? 0),
   };
+  
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -151,7 +152,7 @@ export default function DetallesAsistencia() {
           <CardHeader className="pb-3">
             <CardTitle className="text-lg flex items-center">
               <Users className="w-5 h-5 mr-2 text-green" />
-              Total Presentees
+              Total Presentes
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -231,7 +232,7 @@ export default function DetallesAsistencia() {
                       {asistencia?.fecha}
                     </h3>
                     <p className="text-muted-foreground">
-                      {asistencia?.presentes ?? 0} presentes de 30 estudiantes
+                      {asistencia?.presentes ?? 0} presentes
                     </p>
                   </div>
                   <div className="text-right">
